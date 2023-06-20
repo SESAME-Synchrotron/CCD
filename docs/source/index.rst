@@ -1,21 +1,11 @@
-Welcome to trainees repo documentation!
-=======================================
-
-
-sections
---------
+Welcome to the Computing, Control and Data Collection & Analysis Training Program at SESAME
+==============================================================================================
 
 .. toctree::
+   :maxdepth: 3
+   :hidden:
+   :caption: Departments:
 
-   test
-
-
-
-git status
-git add (.)/(A)
-git commit -m ""
-git push origin (branch)
-
-
-git pull 
-git diff 
+   Computing
+   Control
+   DAQ
