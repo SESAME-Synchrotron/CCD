@@ -2,9 +2,9 @@
 
 # -- Project information
 
-project = 'SESAME Trainees'
-copyright = '2021, Graziella'
-author = 'Graziella'
+project = 'SESAME Training Program'
+copyright = '2023, Mohammed AbuSadeh'
+author = 'Mohammed AbuSadeh'
 
 release = '0.1'
 version = '0.1.0'
