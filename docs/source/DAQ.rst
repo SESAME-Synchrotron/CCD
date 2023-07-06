@@ -18,6 +18,7 @@ Detector
 
 EPICS-Qt-Based Client for Collection of Data from Testing Bench 
 ----------------------------------------------------------------
+**Tarek Razzaz**
 
 Motion Box
 ...........
