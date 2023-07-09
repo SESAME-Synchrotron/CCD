@@ -1,16 +1,30 @@
 Control Engineering
 ===================
 
-Control Systems and the EPICS Toolkit
---------------------------------------
+Control Systems and Introduction to the EPICS Toolkit
+-----------------------------------------------------
 
-test test
 
 EPICS Installation on Rocky Linux
 ---------------------------------
 
-EPICS Support Modules
----------------------
+Packages and Compilers
+......................
+
+EPICS IOC Creation
+------------------
+
+IOC Database
+............
+
+IOC Hypotenuse Project Exercise
+...............................
+
+IOC Python-Based Scripting
+..........................
+
+IOC Qt-Based Scripting (C++)
+............................
 
 EPICS IOC Creation and Running (SIEMENS PLC)
 --------------------------------------------
