@@ -7,7 +7,7 @@ Operating Systems, Networking and Virtualization
 The Linux Operating System (OS)
 ...............................
 
-**Operating Systems:** is a software program that manages and controls the hardware and software resources of a computer system. It acts as an intermediary between the user, applications, and the computer hardware, providing an environment in which programs can run and interact with the underlying hardware components. The primary functions  of an operating system are to manage processes, memory, file systems, the device and the user interface.
+**Operating Systems:** is a software program that manages and controls the hardware and software resources of a computer system. It acts as an intermediary between the user, applications, and the computer hardware, providing an environment in which programs can run and interact with the underlying hardware components. The primary functions  of an operating system are to manage processes, memory, file systems, the device and the user interfaces.
 
 *Processes vs Services:* 
 **Process:** A process is an executing instance of a program. It represents a running program and includes the program's code, data, and resources. Each process has its own unique process identifier (PID).
