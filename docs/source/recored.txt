@@ -1,0 +1,5 @@
+record(ai, "test:first_pv")
+{
+    field(DESC,"test first record")
+    field(VAL, "40")
+}

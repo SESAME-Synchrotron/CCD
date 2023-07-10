@@ -70,7 +70,7 @@ Packages that required for EPICS installation
 .. code-block:: bash
 
         # To install the gcc-toolset-9-make from source the following command: 
-        wget wget https://dl.rockylinux.org/pub/rocky/8/Devel/x86_64/os/Packages/g/gcc-toolset-9-make-devel-4.2.1-2.el8.x86_64.rpm
+        wget https://dl.rockylinux.org/pub/rocky/8/Devel/x86_64/os/Packages/g/gcc-toolset-9-make-devel-4.2.1-2.el8.x86_64.rpm
 
         # To install the gcc-toolset-9-make from source the following command:
         sudo yum install gcc-toolset-9-make-devel-4.2.1-2.el8.x86_64.rpm
@@ -140,7 +140,7 @@ Then to check if the installation is successful, run the following command:
 
 .. code-block:: bash
 
-  # To check  
+  # Run the following command to check if the installation is successful 
     caget
     # Then you should see the following output
     No pv name specified. ('caget -h' for help.) 
@@ -149,6 +149,45 @@ if so then the installation is successful.
 
 EPICS IOC Creation
 ------------------
+
+.. code-block:: bash
+
+        # To create a new IOC
+        mkdir testIOC
+        cd testIOC
+        makeBaseApp.pl -t -i ioc iocName
+        cd configure
+        vim RELEASE
+        # make sure everything is correct in the file
+        cd
+        cd testIOC
+        cd testApp
+        cd db
+        vim test.db
+
+Add the following lines to the test.db file
+
+.. include:: recored.txt
+
+.. code-block:: bash
+
+    cd
+    cd testIOC
+    vim Makefile
+
+
+
+Only the following lines should be in the Makefile file.
+
+.. include:: recored.txt
+
+
+.. code-block:: bash
+
+    cd
+    cd testIOC
+    vim Makefile
+
 
 IOC Database
 ............
