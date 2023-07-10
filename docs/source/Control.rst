@@ -38,8 +38,6 @@ Picture Slide 12
 PICTURE slide 14
 
 
-EPICS Installation on Rocky Linux
----------------------------------
 
 Packages that required for EPICS installation 
 ......................
