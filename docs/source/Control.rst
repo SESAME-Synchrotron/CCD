@@ -194,6 +194,20 @@ IOC Database
 
 IOC Hypotenuse Project Exercise
 ...............................
+After knowing the Database section this is a small Exercise that would help you to put your knowledge into practice. 
+
+
+
+- Define a record that calculates the hypotenuse of a right triangle. The record should have two input fields, A and B, and one output field, VAL. The record should calculate the hypotenuse using the following formula:
+::
+    VAL = sqrt(A*A + B*B)
+
+- To test :in your terminal
+    * caput <record_name>:A <value>
+    * caput <record_name>:B <value>
+    * caget <record_name>
+
+.. image:: images/triangle.png 
 
 IOC Python-Based Scripting
 ..........................
