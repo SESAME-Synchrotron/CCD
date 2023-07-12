@@ -267,6 +267,36 @@ After knowing the Database section this is a small Exercise that would help you 
 
 .. image:: images/triangle.png 
 
+   
+.. code-block:: bash
+
+    record(ai, "test:Altitude_PV") {
+      field(INP, "@user")
+      field(VAL, 0.0)
+    }
+
+
+    record(ai, "test:Base_PV") {
+      field(INP, "@user")
+      field(VAL, 0.0)
+    }
+
+
+    record(calc, "test:Calc_PV") {
+      field(DESC, "Calculation of side C (hypotenuse)")
+      field(CALC, "SQR(A*A + B*B)")
+      field(INPA, "test:Altitude_PV CP")
+      field(INPB, "test:Base_PV CP")
+    }
+
+.. code-block:: bash
+      caput test:Altitude_PV 3
+      caput test:Base_PV 4
+      caget test:Calc_PV
+
+Then you should see the answer in the terminal
+
+
 IOC Python-Based Scripting
 ..........................
 
