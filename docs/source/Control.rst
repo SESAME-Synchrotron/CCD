@@ -7,18 +7,18 @@ Control Systems and Introduction to the EPICS Toolkit
 
 *For example:* SESAME has N Computers, N magnets, N vacuum pumps, 5 beamlines, a cooling system, RF system, power supply system, ... etc. which all need to be closely and heavily controlled.
 
-PICTURE slide 4
+.. image:: images/EPICS_slide4.png
 
 **Experimental Physics and Industrial Control System (EPICS)**: is a collaboration software tool kit, that provides a control system architecture suitable for research and industrial facilities such as accelerators. EPICS uses a Client/Server and Publish/Subscribe methods and a Channel Access network protocol (3-tier architecture or 3 layer model). 
 
-PICTURE slide 10
+.. image:: images/EPICS_slide10.png
 
 EPICS is an *open-sourced* project assembeled by multiple collaborators in the accelerator industry, 12+ accelerators around the world have provided assistance in its development and still use it to this day. 
 
 
 **Channel Access:** A protocol to transfer data over network, a single data unit is called a **Process Variable**. The entire set of Process Variables establish a Distributed Real-time Database of machine statis, information and control parameters.
 
-PICTURE Slide 11
+.. image:: images/EPICS_slide11.png
 
 **Channel Access Network Flow:**
 
@@ -26,7 +26,7 @@ PICTURE Slide 11
 2) Answer: direct connection
 3) All further queries and answers work directly (Point-To-Point)
 
-Picture Slide 12
+.. image:: images/EPICS_slide12.png
 
 **Main Access Commands in EPICS:**
 
@@ -35,8 +35,7 @@ Picture Slide 12
 - ``camonitor``: sets up a monitor and continuously prints incoming changing values for PVs.
 - ``cainfo``: Prints all available channel status and information for a PV.
 
-PICTURE slide 14
-
+.. image:: images/EPICS_slide14.png
 
 
 Packages that required for EPICS installation 
@@ -192,22 +191,66 @@ Only the following lines should be in the Makefile file.
 IOC Database
 ............
 
+In the IOC database, there are units of PV's called **Records**. Each of these records have a specific type that allows them to alter the functionality of the PV. In every one of these records, there are **fields**, in which include attributes and some of the possible functions that that the PV could do. 
+
+**Record:** an object with a unique name, properties (**fields**) and contains information (data) where different data types can appear in different fields. A record also has the ability to perform actions on data.
+
+**Naming a PV:** a PV is comprised of two parts
+- The record name
+- The name of a field belonging to that record
+
+For example: ``ARIDI-PCT:CURRENT.`` in this case most record fields can be accessed individually.
+
+Note: if no field name is given, Channel Access will default to using the .VAL field. 
+
+A general structure of what you might see in an IOC in terms of records and fields is the following:
+
+.. code-block:: bash
+
+  record(ai, "test:Altitude_PV") {
+    field(INP, "@user")
+    field(VAL, 0.0)
+  }
+
+
+  record(ai, "test:Base_PV") {
+    field(INP, "@user")
+    field(VAL, 0.0)
+  }
+
+
+  record(calc, "test:Calc_PV") {
+    field(DESC, "Calculation of side C (hypotenuse)")
+    field(CALC, "SQR(A*A + B*B)")
+    field(INPA, "test:Altitude_PV CP")
+    field(INPB, "test:Base_PV CP")
+  }
+
+As mentioned previously, altering these records could be done using the
+
+The documentation for the list of records on EPICS and their respective fields can be found on this page: https://epics.anl.gov/EpicsDocumentation/AppDevManuals/RecordRef/Recordref-3.html
+
+After curating your IOC database, in order to interact with it one would have to use a Channel Access (CA) Client. 
+
+Some of the most used CA clients are the following: 
+
+- Command line tools(caget,caput,...)
+  .. image:: images/EPICS_slide21.png
+
+- ALH: Alarm Handler
+  .. image:: images/EPICS_slide25.png
+  .. image:: images/EPICS_slide24.png
+
+- StripTool: Strip-chart Plotting Tool
+  .. image:: images/EPICS_slide27.png
+
+- catQtDM: Display Manager
+  .. image:: images/EPICS_slide29.png
+  .. image:: images/EPICS_slide41.png
+  
+
 IOC Hypotenuse Project Exercise
 ...............................
-After knowing the Database section this is a small Exercise that would help you to put your knowledge into practice. 
-
-
-
-- Define a record that calculates the hypotenuse of a right triangle. The record should have two input fields, A and B, and one output field, VAL. The record should calculate the hypotenuse using the following formula:
-::
-    VAL = sqrt(A*A + B*B)
-
-- To test :in your terminal
-    * caput <record_name>:A <value>
-    * caput <record_name>:B <value>
-    * caget <record_name>
-
-.. image:: images/triangle.png 
 
 IOC Python-Based Scripting
 ..........................
