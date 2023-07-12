@@ -179,7 +179,7 @@ Add the following lines to the test.db file
 
 Only the following lines should be in the Makefile file.
 
-.. include:: recored.txt
+.. include:: Text-material/recored.txt
 
 
 .. code-block:: bash
