@@ -235,17 +235,23 @@ After curating your IOC database, in order to interact with it one would have to
 Some of the most used CA clients are the following: 
 
 - Command line tools(caget,caput,...)
+  
   .. image:: images/EPICS_slide21.png
 
 - ALH: Alarm Handler
+  
   .. image:: images/EPICS_slide25.png
+    
   .. image:: images/EPICS_slide24.png
 
 - StripTool: Strip-chart Plotting Tool
+  
   .. image:: images/EPICS_slide27.png
 
 - catQtDM: Display Manager
+  
   .. image:: images/EPICS_slide29.png
+    
   .. image:: images/EPICS_slide41.png
   
 
