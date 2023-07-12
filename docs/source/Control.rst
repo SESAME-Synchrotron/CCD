@@ -290,15 +290,171 @@ After knowing the Database section this is a small Exercise that would help you 
     }
 
 .. code-block:: bash
-      caput test:Altitude_PV 3
-      caput test:Base_PV 4
-      caget test:Calc_PV
+
+  caput test:Altitude_PV 3
+  caput test:Base_PV 4
+  caget test:Calc_PV
 
 Then you should see the answer in the terminal
 
 
-IOC Python-Based Scripting
-..........................
+.. _pv-triangle-plotter:
+
+PV Triangle Plotter with Python
+===============================
+
+A Python script for manipulating Process Variables (PV) and plotting a triangle based on the given base and altitude values.
+
+
+.. code-block:: python
+
+  import sys
+  import argparse
+  import matplotlib
+  import matplotlib.pyplot as plt
+  import numpy as np
+
+  from epics import caget, caput, cainfo
+
+
+  def ca_put_info(pv, value):
+      caput(pv, value)
+
+
+  def ca_get_info(pv):
+      return caget(pv)
+
+  def draw_triangle(base, altitude):
+      # Define the triangle vertices
+      vertices = [(0, 0), (base, 0), (0, altitude), (0, 0)]
+
+      # Extract the x and y coordinates from the vertices
+      x = [vertex[0] for vertex in vertices]
+      y = [vertex[1] for vertex in vertices]
+
+      # Plot the triangle with filled sides
+      plt.figure()
+      plt.plot(x[:2], y[:2], '-o', color='red')  
+      plt.plot(x[1:3], y[1:3], '-o', color='green') 
+      plt.plot(x[2:], y[2:], '-o', color='blue')  
+
+      # Create a cool gradient color map
+      cmap = matplotlib.cm.get_cmap('cool')
+
+      # Fill the triangle with a cool gradient color
+      plt.fill_between(x[:2], y[:2], color=cmap(0.3), alpha=0.3)
+      plt.fill_between(x[1:3], y[1:3], color=cmap(0.5), alpha=0.3)
+      plt.fill_between(x[2:], y[2:], color=cmap(0.7), alpha=0.3)
+
+      # Add labels to each side
+      plt.text((x[0] + x[1]) / 2, (y[0] + y[1]) / 2, 'base', ha='center', va='bottom', color='red')
+      plt.text((x[1] + x[2]) / 2, (y[1] + y[2]) / 2, 'hypo', ha='center', va='bottom', color='green')
+      plt.text((x[0] + x[2]) / 2, (y[0] + y[2]) / 2, 'altitdue', ha='right', va='top', color='blue')
+
+
+      plt.xlabel('X')
+      plt.ylabel('Y')
+      plt.title('Triangle')
+      plt.grid(True)
+      plt.savefig('triangle_plot.png')
+
+  def main(args):
+      if len(args) != 2:
+          print('Only 2 numbers are allowed')
+          sys.exit(1)
+      else:
+          print('Args:', args)
+          print(caget('test:Base_PV'))
+          ca_put_info('test:Base_PV', args[0])
+          ca_put_info('test:Altitude_PV', args[1])
+          print(ca_get_info('test:Calc_PV'), 'is the calculated value')
+
+          base = args[0]
+          altitude = args[1]
+          draw_triangle(base, altitude)
+
+
+  if __name__ == '__main__':
+      parser = argparse.ArgumentParser(
+          description='Process two numbers for PV manipulation')
+      parser.add_argument('number1', type=int, help='Base number')
+      parser.add_argument('number2', type=int, help='Altitude number')
+
+      args = parser.parse_args()
+      numbers = [args.number1, args.number2]
+      main(numbers)
+
+
+
+
+
+
+
+
+Usage
+-----
+
+The script requires two command-line arguments: `number1` and `number2`. These arguments represent the base and altitude values respectively.
+
+.. code-block:: bash
+
+   $ python pv_triangle_plotter.py number1 number2
+
+Arguments
+---------
+
+.. option:: number1
+.. option:: number2
+
+   Base and altitude numbers used to calculate the area and draw a triangle.
+
+   Both arguments should be integers.
+
+Functionality
+-------------
+
+1. Process Variable Manipulation:
+
+   The script uses the `epics` library to interact with Process Variables (PVs) using the Channel Access (CA) protocol. The following functions are used for PV manipulation:
+
+   - ``ca_put_info(pv, value)``: Writes a value to the specified PV.
+   - ``ca_get_info(pv)``: Reads the value from the specified PV.
+
+2. Triangle Plotting:
+
+   The script includes a function named ``draw_triangle(base, altitude)`` that plots a triangle based on the given base and altitude values. The triangle is plotted using matplotlib.
+
+   The function performs the following steps:
+
+   a. Defines the vertices of the triangle based on the given base and altitude.
+   b. Extracts the x and y coordinates from the vertices.
+   c. Plots the sides of the triangle using different colors.
+   d. Fills the triangle with a gradient color.
+   e. Adds labels to each side of the triangle.
+   f. Sets the axis labels, title, and grid for the plot.
+   g. Saves the plot as a PNG file.
+
+   Note: The matplotlib library is required to run this script.
+
+Example
+-------
+
+To calculate the area and plot a triangle with a base of 5 and an altitude of 8, run the following command:
+
+.. code-block:: bash
+
+   $ python pv_triangle_plotter.py 5 8
+
+This will write the base and altitude values to the corresponding PVs, calculate the area using a separate PV, and save the triangle plot as `triangle_plot.png`.
+
+.. image:: images/triangle_plot.png
+   :width: 400
+   :align: center
+
+
+
+
+
 
 IOC Qt-Based Scripting (C++)
 ............................
