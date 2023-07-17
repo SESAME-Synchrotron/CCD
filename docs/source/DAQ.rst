@@ -37,7 +37,23 @@ This script is controlled via the terminal, and has five commands that can be ex
     - ``lo_lim``: The soft-coded lower positional limit for the motor.
     - ``center``: The center position for the motor where it will be directed after homing.
     - ``hi_lim``: The soft-coded higher positional limit for the motor.
-
+- ``change``: Used to change a preexisting motor in the JSON file.
+    - Usage: ``change json_path motor_name pv_root lo_lim center hi_lim``
+    - ``json_path``: The path to the JSON file containing the general and motor configurations.
+    - ``motor_name``: The name of the motor to be changed.
+    - ``pv_root``: The PV root name used to access the motor.
+    - ``lo_lim``: The soft-coded lower positional limit for the motor.
+    - ``center``: The center position for the motor where it will be directed after homing.
+    - ``hi_lim``: The soft-coded higher positional limit for the motor.
+- ``remove``: Used to remove a preexisting motor from the JSON file.
+    - Usage: ``remove json_path motor_name``
+    - ``json_path``: The path to the JSON file containing the general and motor configurations.
+    - ``motor_name``: The name of the motor to be removed, or ``all`` to remove all available motors.
+- ``home``: Used to begin homing for one or all of the motors.
+    - Usage: ``home json_path motor_name homing_mode``
+    - ``json_path``: The path to the JSON file containing the general and motor configurations.
+    - ``motor_name``: The name of the motor to be homed, or ``all`` to home all available motors.
+    - ``homing_mode``: The method to be used in homing, either ``hi`` to use the hi_lim or ``lo`` to use the lo_lim.
 
 Detector
 ........

@@ -3,8 +3,8 @@
 # -- Project information
 
 project = 'SESAME Training Program'
-copyright = '2023, Mohammed AbuSadeh,Ali Aljufairi'
-author = 'Mohammed AbuSadeh,Ali Aljufairi'
+copyright = '2023, Mohammed AbuSadeh, Ali Aljufairi, Tarek Razzaz'
+author = 'Mohammed AbuSadeh, Ali Aljufairi, Tarek Razzaz'
 
 release = '0.1'
 version = '0.1.0'
