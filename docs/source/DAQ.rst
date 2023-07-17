@@ -8,7 +8,7 @@ Data Acquisition Testing Bench
 ------------------------------
 The testing bench consists of five motors, from A to E, that can be controlled using EPICS. These motors are used to test various control programs that are to be used at SESAME beamlines.
 
-.. _python-homing-ref:
+..  _link-target:
 Python-Based Client for Collection of Data from Testing Bench 
 --------------------------------------------------------------
 Motion Box
@@ -70,14 +70,14 @@ EPICS-Qt-Based Client for Collection of Data from Testing Bench
 
 Motion Box
 ...........
-A GUI was developed using Qt in order to more easily home the motors, as in :ref:'python-homing-ref`. This GUI consists of:
+A GUI was developed using Qt in order to more easily home the motors, as in :ref:`anchor text <t3start:link-target>`. This GUI consists of:
 - A QComboBox (like a dropdown menu) for selecting one or all of the motors.
 - Four QLineEdits (like textboxes) for viewing and modifying the ``pv_root``, ``lo_lim``, ``center``, and ``hi_lim`` for the selected motor in the JSON file (is blank when all motors are selected).
 - A QPushButton for adding a new motor to the JSON file.
 - A QPushButton for removing the selected motor(s).
 - Two QPushButtons for homing the selected motor(s) using either the higher limit or the lower limit.
 
-This GUI operates by sending commands to the Python script described in :ref:'python-homing-ref` via the terminal. It is therefore fairly finicky, as there isn't much feedback displayed in the GUI, and the directories for the Python script and the JSON file are hardcoded into the GUI.
+This GUI operates by sending commands to the Python script described in :ref:`anchor text <t3start:link-target>` via the terminal. It is therefore fairly finicky, as there isn't much feedback displayed in the GUI, and the directories for the Python script and the JSON file are hardcoded into the GUI.
 
 
 Detector
