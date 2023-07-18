@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Collection and Analysis &mdash; SESAME Training Program 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Control Engineering" href="Control.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SESAME Training Program
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Departments:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Computing.html">Scientific Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Control.html">Control Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Control.html#pv-triangle-plotter-with-python">PV Triangle Plotter with Python</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Collection and Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-collection-at-sesame">Data Collection at SESAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-acquisition-testing-bench">Data Acquisition Testing Bench</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-based-client-for-collection-of-data-from-testing-bench">Python-Based Client for Collection of Data from Testing Bench</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motion-box">Motion Box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#detector">Detector</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#epics-qt-based-client-for-collection-of-data-from-testing-bench">EPICS-Qt-Based Client for Collection of Data from Testing Bench</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Motion Box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Detector</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#software-and-hardware-synchronization">Software and Hardware Synchronization</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SESAME Training Program</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Data Collection and Analysis</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/DAQ.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="data-collection-and-analysis">
+<h1>Data Collection and Analysis<a class="headerlink" href="#data-collection-and-analysis" title="Permalink to this heading"></a></h1>
+<section id="data-collection-at-sesame">
+<h2>Data Collection at SESAME<a class="headerlink" href="#data-collection-at-sesame" title="Permalink to this heading"></a></h2>
+</section>
+<section id="data-acquisition-testing-bench">
+<h2>Data Acquisition Testing Bench<a class="headerlink" href="#data-acquisition-testing-bench" title="Permalink to this heading"></a></h2>
+<p>The testing bench consists of five motors, from A to E, that can be controlled using EPICS. These motors are used to test various control programs that are to be used at SESAME beamlines.</p>
+</section>
+<section id="python-based-client-for-collection-of-data-from-testing-bench">
+<h2>Python-Based Client for Collection of Data from Testing Bench<a class="headerlink" href="#python-based-client-for-collection-of-data-from-testing-bench" title="Permalink to this heading"></a></h2>
+<section id="motion-box">
+<h3>Motion Box<a class="headerlink" href="#motion-box" title="Permalink to this heading"></a></h3>
+<p>A Python script was developed in order to home each of the motors in the testing bench. This is necessary in order to ensure the motors are calibrated correctly.</p>
+<p>The script works using a JSON file containing parameters for each motor in the testing bench. Specifically, these parameters are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pv_root</span></code>: The root of all of the PVs associated with the motor.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lo_lim</span></code>: The soft-coded lower limit on the position of the motor.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hi_lim</span></code>: The soft-coded higher limit on the position of the motor.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">center</span></code>: The “default” position of the motor, where it will be taken after the homing is complete (often takes on the value of 0).</p></li>
+</ul>
+<p>Additionally, the JSON file contains general configuration parameters. For now, the only parameter is the tolerance, which is the difference between the hard limits and the soft limits on the motor positions.</p>
+<p>This script is controlled via the terminal, and has five commands that can be executed:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">help</span></code>: Used to get usage information regarding a given command.</dt><dd><ul>
+<li><p>Usage: <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">command_name</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">command_name</span></code>: The name of the command that the user would like help with.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">add</span></code>: Used to add a new motor to the JSON file.</dt><dd><ul>
+<li><p>Usage: <code class="docutils literal notranslate"><span class="pre">add</span> <span class="pre">json_path</span> <span class="pre">motor_name</span> <span class="pre">pv_root</span> <span class="pre">lo_lim</span> <span class="pre">center</span> <span class="pre">hi_lim</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">json_path</span></code>: The path to the JSON file containing the general and motor configurations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">motor_name</span></code>: The name of the motor to be added.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pv_root</span></code>: The PV root name used to access the motor.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lo_lim</span></code>: The soft-coded lower positional limit for the motor.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">center</span></code>: The center position for the motor where it will be directed after homing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hi_lim</span></code>: The soft-coded higher positional limit for the motor.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">change</span></code>: Used to change a preexisting motor in the JSON file.</dt><dd><ul>
+<li><p>Usage: <code class="docutils literal notranslate"><span class="pre">change</span> <span class="pre">json_path</span> <span class="pre">motor_name</span> <span class="pre">pv_root</span> <span class="pre">lo_lim</span> <span class="pre">center</span> <span class="pre">hi_lim</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">json_path</span></code>: The path to the JSON file containing the general and motor configurations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">motor_name</span></code>: The name of the motor to be changed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pv_root</span></code>: The PV root name used to access the motor.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lo_lim</span></code>: The soft-coded lower positional limit for the motor.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">center</span></code>: The center position for the motor where it will be directed after homing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hi_lim</span></code>: The soft-coded higher positional limit for the motor.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">remove</span></code>: Used to remove a preexisting motor from the JSON file.</dt><dd><ul>
+<li><p>Usage: <code class="docutils literal notranslate"><span class="pre">remove</span> <span class="pre">json_path</span> <span class="pre">motor_name</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">json_path</span></code>: The path to the JSON file containing the general and motor configurations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">motor_name</span></code>: The name of the motor to be removed, or <code class="docutils literal notranslate"><span class="pre">all</span></code> to remove all available motors.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">home</span></code>: Used to begin homing for one or all of the motors.</dt><dd><ul>
+<li><p>Usage: <code class="docutils literal notranslate"><span class="pre">home</span> <span class="pre">json_path</span> <span class="pre">motor_name</span> <span class="pre">homing_mode</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">json_path</span></code>: The path to the JSON file containing the general and motor configurations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">motor_name</span></code>: The name of the motor to be homed, or <code class="docutils literal notranslate"><span class="pre">all</span></code> to home all available motors.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">homing_mode</span></code>: The method to be used in homing, either <code class="docutils literal notranslate"><span class="pre">hi</span></code> to use the higher limit or <code class="docutils literal notranslate"><span class="pre">lo</span></code> to use the lower limit.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>For example, in order to home all of the motors using the higher limit, navigate to the directory containing the Python script in the terminal and run:</p>
+<p>Where <code class="docutils literal notranslate"><span class="pre">test.py</span></code> is the Python script file name and <code class="docutils literal notranslate"><span class="pre">test.json</span></code> is the JSON file name.</p>
+</section>
+<section id="detector">
+<h3>Detector<a class="headerlink" href="#detector" title="Permalink to this heading"></a></h3>
+</section>
+</section>
+<section id="epics-qt-based-client-for-collection-of-data-from-testing-bench">
+<h2>EPICS-Qt-Based Client for Collection of Data from Testing Bench<a class="headerlink" href="#epics-qt-based-client-for-collection-of-data-from-testing-bench" title="Permalink to this heading"></a></h2>
+<section id="id1">
+<h3>Motion Box<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>A GUI was developed using Qt in order to more easily home the motors, as in Python-Based Client for Collection of Data from Testing Bench. This GUI consists of:
+- A QComboBox (like a dropdown menu) for selecting one or all of the motors.
+- Four QLineEdits (like textboxes) for viewing and modifying the <code class="docutils literal notranslate"><span class="pre">pv_root</span></code>, <code class="docutils literal notranslate"><span class="pre">lo_lim</span></code>, <code class="docutils literal notranslate"><span class="pre">center</span></code>, and <code class="docutils literal notranslate"><span class="pre">hi_lim</span></code> for the selected motor in the JSON file (is blank when all motors are selected).
+- A QPushButton for adding a new motor to the JSON file.
+- A QPushButton for removing the selected motor(s).
+- Two QPushButtons for homing the selected motor(s) using either the higher limit or the lower limit.</p>
+<p>This GUI operates by sending commands to the Python script described in Python-Based Client for Collection of Data from Testing Bench via the terminal. It is therefore fairly finicky, as there isn’t much feedback displayed in the GUI, and the directories for the Python script and the JSON file are hardcoded into the GUI.</p>
+</section>
+<section id="id2">
+<h3>Detector<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+</section>
+</section>
+<section id="software-and-hardware-synchronization">
+<h2>Software and Hardware Synchronization<a class="headerlink" href="#software-and-hardware-synchronization" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Control.html" class="btn btn-neutral float-left" title="Control Engineering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Mohammed AbuSadeh, Ali Aljufairi, Tarek Razzaz.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

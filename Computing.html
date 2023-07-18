@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scientific Computing &mdash; SESAME Training Program 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Control Engineering" href="Control.html" />
+    <link rel="prev" title="Welcome to the Computing, Control and Data Collection &amp; Analysis Training Program at SESAME" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SESAME Training Program
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Departments:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Scientific Computing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#operating-systems-networking-and-virtualization">Operating Systems, Networking and Virtualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-linux-operating-system-os">The Linux Operating System (OS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linux-directories">Linux Directories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#networking">Networking</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#rocky-linux-basics-and-virtual-access">Rocky Linux Basics and Virtual Access</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rocky-virtual-machine">Rocky Virtual Machine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#remote-network-protocols">Remote Network Protocols</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#file-sharing-protocols">File Sharing Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#high-end-computing-services-and-infastructure">High-End Computing Services and infastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#computing-project">Computing Project</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Control.html">Control Engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Control.html#pv-triangle-plotter-with-python">PV Triangle Plotter with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DAQ.html">Data Collection and Analysis</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SESAME Training Program</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Scientific Computing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Computing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scientific-computing">
+<h1>Scientific Computing<a class="headerlink" href="#scientific-computing" title="Permalink to this heading"></a></h1>
+<section id="operating-systems-networking-and-virtualization">
+<h2>Operating Systems, Networking and Virtualization<a class="headerlink" href="#operating-systems-networking-and-virtualization" title="Permalink to this heading"></a></h2>
+<section id="the-linux-operating-system-os">
+<h3>The Linux Operating System (OS)<a class="headerlink" href="#the-linux-operating-system-os" title="Permalink to this heading"></a></h3>
+<p><strong>Operating Systems:</strong> is a software program that manages and controls the hardware and software resources of a computer system. It acts as an intermediary between the user, applications, and the computer hardware, providing an environment in which programs can run and interact with the underlying hardware components. The primary functions  of an operating system are to manage processes, memory, file systems, the device and the user interfaces.</p>
+<p><em>Processes vs Services:</em>
+<strong>Process:</strong> A process is an executing instance of a program. It represents a running program and includes the program’s code, data, and resources. Each process has its own unique process identifier (PID).
+<strong>Services:</strong> A service, in the context of Linux, generally refers to a program or a process that runs in the background (seamlessly) and provides specific functionality or performs certain tasks. Services are typically designed to start automatically when the system boots up and continue running in the background, even when no user is logged in.</p>
+<p><strong>Daemon Services</strong>: Daemon services are background processes that run continuously on a computer system, providing system-related services without requiring direct user interaction, such as network services or log management. They are managed by the system-init systems and operate independently of user sessions.</p>
+<p><strong>Server-Client Architecture:</strong> is a computing model where a central server provides services or resources to multiple client devices over a network. The server acts as a powerful host, managing data, applications, or services, while clients are devices that request and consume those services. This architecture enables efficient distribution of resources, with the server handling client requests and delivering the requested information or services. It allows for centralized management, scalability, and flexibility, making it widely used in various applications, such as web services, email systems, and file sharing networks.</p>
+<p><strong>The</strong> <code class="docutils literal notranslate"><span class="pre">root</span></code> <strong>user on linux</strong>: has the highest degree of control and has permission to execute any type of command.</p>
+</section>
+<section id="linux-directories">
+<h3>Linux Directories<a class="headerlink" href="#linux-directories" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/bin</span></code> (Binaries): Contains essential binary executables (programs) that are available to all users and are required for basic system functionality.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/etc</span></code> (Etcetera): Stores system configuration files, including network settings, user account information, software configurations, and various system-wide configuration files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/home</span></code> (Home directories): Each user on the system has their own subdirectory in /home, where their personal files and settings are stored.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/lib</span></code> (Libraries): Houses shared libraries needed by the system and various programs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/root</span></code> (Root Home): Home directory for the root user (superuser/administrator).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/tmp</span></code> (Temporary): Provides a location for temporary files that can be used by programs or users. The contents of this directory are typically cleared on system reboot.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/usr</span></code> (Unix System Resources): Contains a wide range of user-related programs, libraries, documentation, and other resources.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/var</span></code> (Variable): Holds variable data files, such as log files, spool directories (for print queues and mail), temporary files used by programs, and more.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/dev</span></code> (Devices): Represents device files that correspond to physical and virtual devices on the system, allowing programs to interact with them.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/proc</span></code> (Process Information): Provides a virtual file system that contains information about running processes and system configuration, which can be accessed by programs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/mnt</span></code> (Mount): Serves as a temporary mount point for mounting external or remote file systems.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/boot</span></code> (Bootloader): Contains files necessary for system booting, including the bootloader configuration, kernel images, and initial RAM disk (initrd).</p></li>
+</ul>
+</section>
+<section id="networking">
+<h3>Networking<a class="headerlink" href="#networking" title="Permalink to this heading"></a></h3>
+<p><em>Global IP</em> addresses are unique addresses assigned to devices on the internet, allowing them to communicate with other devices across the world, while <em>local IP</em> addresses are used within a private network to identify devices and facilitate communication within the local network but are not directly accessible from the internet.</p>
+<p><em>Global (Public) IP range:</em> 0.0.0.0 - 255.255.255.255</p>
+<p><em>Local IP ranges:</em>
+10.0.0.0 - 10.255.255.255  |  172.16.0.0 - 172.31.255.255</p>
+</section>
+</section>
+<section id="rocky-linux-basics-and-virtual-access">
+<h2>Rocky Linux Basics and Virtual Access<a class="headerlink" href="#rocky-linux-basics-and-virtual-access" title="Permalink to this heading"></a></h2>
+<section id="rocky-virtual-machine">
+<h3>Rocky Virtual Machine<a class="headerlink" href="#rocky-virtual-machine" title="Permalink to this heading"></a></h3>
+<p>Since the Linux environment is open-sourced, it is configured by many different distributors, some of the most famous ones are Ubuntu, Redhat, Centos, … etc. The one we will be using is called Rocky, which is configured by Redhat Enterprise. We use Rocky specifically since the majority of the servers at SESAME are configured using Rocky. So, as a first step to take is to have <strong>Rocky version 8</strong> installed.
+In order to start working with a Linux environment, one must have access to the Operating System. However, as most people who possess personal computers usually use Windows and MacOS, we have to establish an alternate environment to install the Linux OS.</p>
+<p><strong>Virtual Machines</strong>  are computer systems created using software on one physical computer in order to emulate the functionality of another separate physical computer. Therefore, we can take advantage of the hardware on the PC that we have to operate a LinuxOS through a virtualized environment.</p>
+<p>In order to do that we have to intall a popular virtual machine system called <strong>VMware Workstation 17 Player</strong> that allows us to handpick the specs of the virtual machine to our liking.</p>
+<p>After we have installed Rocky 8, we must configure our VM using VMware:</p>
+<ul class="simple">
+<li><p>Open VMware and press “Create a New Virtual Machine”.</p></li>
+<li><p>A new window will pop up, choose the option “Installer Disc Image File”, and choose the Rocky 8 file you have downloaded previously.</p></li>
+<li><p>Choose Linux as your OS and choose “Red Hat Enterprise Linux 8 64-bit”.</p></li>
+<li><p>Choose an appropriate name for your VM.</p></li>
+<li><p>For the disk size, 15-20 GB should be more than enough. Also choose “Store virtual disk as a single file” as it is a better practice to have all the environment installed in one place.</p></li>
+<li><p>Now, we must customize our hardware. The following image shows what you should be seeing on the window:</p></li>
+<li><p>We need at least 3 GB for the memory of the VM, in order for it to work smoothly, and please make sure that the “Network Adapter” is set for NAT, as it should extend its network locally from your machine.</p></li>
+</ul>
+<p>Now you should be good with setting up your personal virtual machine. You just have to access your VM and make sure it is conifgured properly and connected to the network. Also, make sure to install the LinuxOS environment with a <em>GUI</em> in order to have easier access to different packages and facilities later on.</p>
+<p>Create a new user with a password and you should be set!</p>
+<p><strong>Basic Linux Commands on Rocky 8:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ifconfig</span></code> or <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code>: Display or configure network interface information.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span></code>: Change the current directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cp</span></code>: Copy files or directories.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ls</span></code>: List directory contents.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">useradd</span></code>: Create a new user.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">passwd</span></code>: Set or change a user’s password.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">su</span></code>: Switch to a different user.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">whoami</span></code>: Display the current user’s username.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">awk</span></code>: A text processing tool used to extract and manipulate data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ll</span></code>: List files and directories in a long format.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mv</span></code>: Move or rename files and directories.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rm</span></code>: Remove files or directories.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">du</span></code>: Display disk usage of files and directories.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">-h</span></code>: Display disk space usage in a human-readable format.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cat</span></code>: Concatenate and display file contents.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">uname</span> <span class="pre">-r</span></code>: Show the kernel version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-n</span></code>: Display the last n lines of a file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">head</span> <span class="pre">-n</span></code>: Display the first n lines of a file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vim</span></code>: A text editor for creating and modifying files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yum</span></code>: Package manager for CentOS and RHEL-based distributions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dnf</span></code>: Package manager for Fedora and newer RHEL-based distributions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">top</span></code>: Monitor system processes and resource usage.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scp</span></code>: Securely copy files between local and remote systems.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xkill</span></code>: Forcefully terminate a graphical application.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ps</span> <span class="pre">aux</span></code>: Display information about running processes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">grep</span></code>: Search for specific patterns in files or output.</p></li>
+</ul>
+</section>
+<section id="remote-network-protocols">
+<h3>Remote Network Protocols<a class="headerlink" href="#remote-network-protocols" title="Permalink to this heading"></a></h3>
+<p><strong>Data Transfer Protocols (FTP, SFTP):</strong> FTP (File Transfer Protocol) and SFTP (Secure File Transfer Protocol) are methods used to transfer files between systems over a network, with SFTP providing an additional layer of security by encrypting the data being transferred.</p>
+<p><strong>Internet Protocols (HTTP, HTTPS):</strong> HTTP (Hypertext Transfer Protocol) and HTTPS (Hypertext Transfer Protocol Secure) are communication protocols used for transmitting data over the internet, with HTTPS providing encryption and authentication to secure the data exchanged between a web server and a client, ensuring a safer browsing experience.</p>
+<p>At SESAME, the Scientific Computing Department uses a very big cluster of servers that all run hundreds of virtual machines. Therefore, having a remote access method to these virtual machines is necissary and very needed to have control over the servers over the local SESAME network without having to physically plug in your laptop and make changes to each server.</p>
+<p>Some of the Remote Access Protocol methods used at SESAME include:
+* SSH
+* VNC
+* NoMachine</p>
+<p>Ports for servers:</p>
+<ul class="simple">
+<li><p>SSH: 22</p></li>
+<li><p>HTTP: 80</p></li>
+<li><p>HTTPS: 443</p></li>
+<li><p>NoMachine: 5000</p></li>
+</ul>
+<p><em>Firewall Management:</em> Ports in the device allow for data transfer, managing the data going in and out.</p>
+<p><strong>SSH (Secure Shell):</strong> is a network protocol that provides a secure and encrypted method for remote access to and management of systems over an unsecured network.</p>
+<p><strong>VNC (Virtual Network Computing):</strong> is a graphical desktop-sharing system that allows remote control of a computer desktop, enabling users to access and interact with a remote system as if they were physically present.</p>
+<p>We can utilize SSH or VNC protocols to access our VM from our Windows or MacOS environments with <strong>MobaXterm</strong>:</p>
+<p>MobaXterm: is a comprehensive remote desktop and networking tool that combines various utilities and protocols into a single platform, facilitating efficient remote access and system administration.
+Therefore, we need to install MobaXterm as it has a better GUI to accessing and controlling the command line in our VM.</p>
+<p>Steps to connect via SSH:</p>
+<ul class="simple">
+<li><p>Note that we can establish a SSH connection between two VM’s as long as they share the same local network.</p></li>
+</ul>
+<ul class="simple">
+<li><p>we can do that by writing <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">user&#64;IPaddress</span></code>, to access a specific user or the root by just writing “root” instead of “user” and the IPadress which we can get from writing <code class="docutils literal notranslate"><span class="pre">ifconfig</span></code> or <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code>.</p></li>
+</ul>
+<p>Steps to connect via VNC:</p>
+<p>Establishing a VNC network is a quite long and specific process, I recommend the looking up how to install a VNC viewer on Linux and access it through you own OS (Windows or MacOS).
+Here are some links that should be helpful:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cat.pdx.edu/platforms/windows/remote-access/vnc-to-linux/">https://cat.pdx.edu/platforms/windows/remote-access/vnc-to-linux/</a></p></li>
+<li><p><a class="reference external" href="https://linuxhint.com/install-realvnc-vnc-viewer-linux/#:~:text=8%20Linux%20distribution.-,First%2C%20visit%20the%20official%20download%20page%20of%20RealVNC%20VNC%20Viewer,the%20VNC%20Viewer%20installation%20file">https://linuxhint.com/install-realvnc-vnc-viewer-linux/#:~:text=8%20Linux%20distribution.-,First%2C%20visit%20the%20official%20download%20page%20of%20RealVNC%20VNC%20Viewer,the%20VNC%20Viewer%20installation%20file</a>.</p></li>
+<li><p><a class="reference external" href="https://techviewleo.com/install-and-configure-vnc-server-on-rocky-linux/?expand_article=1">https://techviewleo.com/install-and-configure-vnc-server-on-rocky-linux/?expand_article=1</a></p></li>
+</ul>
+<p><strong>SSH Public/Private key:</strong> is a secure method for accessing remote systems. The public key is stored on the server, while the private key remains with the user. When connecting, the client uses their private key to authenticate with the server by proving they possess the corresponding public key, ensuring secure and encrypted communication.</p>
+<p>In order to establish a SSH network without asking for a password or verification, establishing a private/public key would ensure that the client accessing the server is secure for any later attempts to access the server.</p>
+<p>A very helpful link to build a SSH Public/Private key on Rocky Linux 8:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-rocky-linux-8">https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-rocky-linux-8</a></p></li>
+</ul>
+</section>
+</section>
+<section id="file-sharing-protocols">
+<h2>File Sharing Protocols<a class="headerlink" href="#file-sharing-protocols" title="Permalink to this heading"></a></h2>
+<p><strong>File Sharing Protocols:</strong> are standardized methods for transferring files over a network. They define rules and formats for efficient and secure transmission, enabling users to share files across different devices and systems seamlessly.</p>
+<p><strong>Network File System (NFS):</strong> is a distributed file system protocol that allows remote access to files over a network. It enables a client system to mount and access directories located on a remote server as if they were local. By using NFS, multiple clients can simultaneously access and share files, facilitating seamless collaboration and centralized storage in networked environments.</p>
+<ul class="simple">
+<li><p>Linux uses NFS</p></li>
+<li><p>Windows uses Samba</p></li>
+<li><p>FTP is cross platform</p></li>
+</ul>
+<p>In order to set up an NFS Mount on LinuxOS (Rocky), please use this link as a guide:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-rocky-linux-8">https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-rocky-linux-8</a></p></li>
+</ul>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">systemctl</span></code> Command: A system management tool to get access and control over different systems in the OS. (could give firewall as example) (when you enable, it’s only doing so when booting so usually you have to reboot, you can put –now so it would enable instantly)</p>
+<ul class="simple">
+<li><p>Start and stop, i.e. <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">stop</span> <span class="pre">firwalld.service</span></code></p></li>
+<li><p>Enable and disable, i.e. <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">enable</span> <span class="pre">firwalld.service</span></code></p></li>
+<li><p>Status: things to look for enabled and active, i.e. <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">status</span> <span class="pre">firwalld.service</span></code></p></li>
+</ul>
+<p>Process of verification of network:</p>
+<ul class="simple">
+<li><p>Ping the IP address</p></li>
+<li><p>Ping the local host</p></li>
+<li><p>Browse <a class="reference external" href="http://localhost">http://localhost</a></p></li>
+</ul>
+<p><strong>iptables:</strong> is a powerful firewall utility in Linux used for configuring and managing network traffic rules. It allows system administrators to define and enforce rules to filter and manipulate network packets, providing security and control over network connections. By leveraging iptables, administrators can control access to services, block malicious traffic, and set up port forwarding or network address translation (NAT) rules.</p>
+<p>iptables Commands:</p>
+<p><code class="docutils literal notranslate"><span class="pre">iptables</span> <span class="pre">-L</span></code>: manages rules in the firewall.</p>
+<p><code class="docutils literal notranslate"><span class="pre">iptables</span> <span class="pre">-F</span></code>: (DO NOT RUN THIS COMMAND) F is for flush, flushes all the implemented rules (deletes them), then you would have to re-build all the rules again one by one.</p>
+<p><strong>Permissions in Linux:</strong> define the level of access and control users and groups have over files and directories. They are set using three categories: owner, group, and others. Each category can have three types of permissions: read, write, and execute, determining whether users can view, modify, or execute a file or directory.</p>
+<p><em>The Form of Permission Information:</em> Permissions are stored in 3 fields, each represented by 3 bits, meaning that each field has a range of values from 0-7. Since the maximum value of 3 bits is 7.</p>
+<p>The fields:</p>
+<ul class="simple">
+<li><p>User Permission (3-bits) (000-111)</p></li>
+<li><p>Group Permission (3-bits) (000-111)</p></li>
+<li><p>Other Permission (3-bits) (000-111)</p></li>
+</ul>
+<p>As each permission field has a binary representation, the first binary bit in the 3-bits is for reading, second is for writing, and third is for execution.</p>
+<p>Example: 111 110 100</p>
+<p>Value:   7   6   4</p>
+<p>Full access: 7 7 7</p>
+<p><code class="docutils literal notranslate"><span class="pre">cat/etc/shadow</span></code>: contains passwords but encrypted and unreadable.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cat/etc/password</span></code>: all details about the user.</p>
+<p><strong>User groups (grouping techniques):</strong> adding users to certain groups, each group would require a different level of permission, and accordingly would be granted access to certain facilities.
+User id’s and groups id’s: stored to separate people, since two users could have the same name but not the same id.</p>
+<p><strong>Normal and Superusers:</strong> Superusers have the same privileges as the root user. You have to use the <code class="docutils literal notranslate"><span class="pre">sudo</span></code> command if user belongs to super-user group. The superuser group is called <code class="docutils literal notranslate"><span class="pre">wheel</span></code> group on Linux.</p>
+<p><code class="docutils literal notranslate"><span class="pre">etc/sudoers</span></code> contains superusers and their privileges.</p>
+</section>
+<section id="high-end-computing-services-and-infastructure">
+<h2>High-End Computing Services and infastructure<a class="headerlink" href="#high-end-computing-services-and-infastructure" title="Permalink to this heading"></a></h2>
+<p><strong>High-End Computing Services and Infrastructure:</strong> refer to advanced computing resources and facilities designed to handle large-scale and computationally intensive workloads. These services often involve high-performance computing (HPC) clusters, supercomputers, or cloud-based infrastructures that provide exceptional processing power, storage capacity, and network capabilities. They are utilized by researchers, scientists, and organizations to tackle complex problems that require significant computational resources.</p>
+<p><strong>High-performance computing (HPC):</strong> refers to the practice of using advanced computing systems and techniques to solve problems that demand substantial computational power and efficiency. HPC systems are specifically designed to deliver exceptional performance, enabling the execution of complex simulations, data analysis, and modeling tasks. They leverage parallel processing, utilizing multiple processors or cores to divide and conquer tasks, allowing for faster and more efficient execution.</p>
+<p>These technologies play a crucial role in various fields such as scientific research, engineering, weather forecasting, molecular modeling, and financial analysis, where massive amounts of data processing, simulations, or computations are required. High-End Computing Services and Infrastructure, along with high-performance computing, provide the foundation for accelerating research, innovation, and data-driven decision making by offering immense computational capabilities and scalability to meet the evolving needs of modern computing.</p>
+</section>
+<section id="computing-project">
+<h2>Computing Project<a class="headerlink" href="#computing-project" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Build new VM on your computer with Rocky Linux 8.7:</dt><dd><p>Follow the instructions in the Rocky Virtual Machines section.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Add user: sesame, make it a sudoer:</dt><dd><p>Follow the instructions in the File Sharing Protocols section.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Install VNC server, enable sesame user to access the VM via VNC:</dt><dd><p>Follow the steps in the Remote Network Protocols section.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Install MediaWiki and publish it on LAN:</dt><dd><p>The following link is very helpful to establish a local web-based server through MediaWiki:
+<a class="reference external" href="https://techviewleo.com/install-mediawiki-on-rocky-almalinux-with-lets-encrypt/?expand_article=1">https://techviewleo.com/install-mediawiki-on-rocky-almalinux-with-lets-encrypt/?expand_article=1</a></p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to the Computing, Control and Data Collection &amp; Analysis Training Program at SESAME" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Control.html" class="btn btn-neutral float-right" title="Control Engineering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Mohammed AbuSadeh, Ali Aljufairi, Tarek Razzaz.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Control Engineering &mdash; SESAME Training Program 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Collection and Analysis" href="DAQ.html" />
+    <link rel="prev" title="Scientific Computing" href="Computing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SESAME Training Program
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Departments:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Computing.html">Scientific Computing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Control Engineering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#control-systems-and-introduction-to-the-epics-toolkit">Control Systems and Introduction to the EPICS Toolkit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#packages-that-required-for-epics-installation">Packages that required for EPICS installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#epics-installation-on-rocky-linux">EPICS Installation on Rocky Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#epics-ioc-creation">EPICS IOC Creation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ioc-database">IOC Database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ioc-hypotenuse-project-exercise">IOC Hypotenuse Project Exercise</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#pv-triangle-plotter-with-python">PV Triangle Plotter with Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#arguments">Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functionality">Functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ioc-qt-based-scripting-c">IOC Qt-Based Scripting (C++)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#epics-ioc-creation-and-running-siemens-plc">EPICS IOC Creation and Running (SIEMENS PLC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#programmable-logic-controllers-plcs-epics-interface">Programmable Logic Controllers (PLCs) EPICS Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#epics-qt-gui-design-and-implementation">EPICS-Qt (GUI design and Implementation)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DAQ.html">Data Collection and Analysis</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SESAME Training Program</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Control Engineering</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Control.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="control-engineering">
+<h1>Control Engineering<a class="headerlink" href="#control-engineering" title="Permalink to this heading"></a></h1>
+<section id="control-systems-and-introduction-to-the-epics-toolkit">
+<h2>Control Systems and Introduction to the EPICS Toolkit<a class="headerlink" href="#control-systems-and-introduction-to-the-epics-toolkit" title="Permalink to this heading"></a></h2>
+<p><strong>Accelerator Control System:</strong> connects the Operator in the control room with the accelerator hardware. The control room might not be near the accelerator.</p>
+<p><em>For example:</em> SESAME has N Computers, N magnets, N vacuum pumps, 5 beamlines, a cooling system, RF system, power supply system, … etc. which all need to be closely and heavily controlled.</p>
+<img alt="_images/EPICS_slide4.png" src="_images/EPICS_slide4.png" />
+<p><strong>Experimental Physics and Industrial Control System (EPICS)</strong>: is a collaboration software tool kit, that provides a control system architecture suitable for research and industrial facilities such as accelerators. EPICS uses a Client/Server and Publish/Subscribe methods and a Channel Access network protocol (3-tier architecture or 3 layer model).</p>
+<img alt="_images/EPICS_slide10.png" src="_images/EPICS_slide10.png" />
+<p>EPICS is an <em>open-sourced</em> project assembeled by multiple collaborators in the accelerator industry, 12+ accelerators around the world have provided assistance in its development and still use it to this day.</p>
+<p><strong>Channel Access:</strong> A protocol to transfer data over network, a single data unit is called a <strong>Process Variable</strong>. The entire set of Process Variables establish a Distributed Real-time Database of machine statis, information and control parameters.</p>
+<img alt="_images/EPICS_slide11.png" src="_images/EPICS_slide11.png" />
+<p><strong>Channel Access Network Flow:</strong></p>
+<ol class="arabic simple">
+<li><p>Query: broadcast and connection request.</p></li>
+<li><p>Answer: direct connection</p></li>
+<li><p>All further queries and answers work directly (Point-To-Point)</p></li>
+</ol>
+<img alt="_images/EPICS_slide12.png" src="_images/EPICS_slide12.png" />
+<p><strong>Main Access Commands in EPICS:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">caget</span></code>: returns the value of the PV or any sub-fields in the PV.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">caput</span></code>: sets a value of a PV or a sub-field in a PV to a desired value and displays the old and newly assigned values.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">camonitor</span></code>: sets up a monitor and continuously prints incoming changing values for PVs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cainfo</span></code>: Prints all available channel status and information for a PV.</p></li>
+</ul>
+<img alt="_images/EPICS_slide14.png" src="_images/EPICS_slide14.png" />
+<section id="packages-that-required-for-epics-installation">
+<h3>Packages that required for EPICS installation<a class="headerlink" href="#packages-that-required-for-epics-installation" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>gcc</strong>: GCC stands for GNU Compiler Collection. It is a collection of programming language compilers and tools, primarily used for compiling and linking C, C++, and Fortran programs. GCC supports multiple platforms and is widely used in the development of software applications.</p></li>
+<li><p><strong>gcc-C++</strong>:This package is an extension of GCC and specifically includes the C++ compiler. It is required if you want to compile and build C++ programs using GCC. The package provides the necessary libraries and headers for C++ development.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># To install the GCC compiler, run the following commands:</span>
+sudo<span class="w"> </span>dnf<span class="w"> </span>clean<span class="w"> </span>all
+sudo<span class="w"> </span>dnf<span class="w"> </span>update
+sudo<span class="w"> </span>dnf<span class="w"> </span>group<span class="w"> </span>list
+sudo<span class="w"> </span>dnf<span class="w"> </span>group<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;Development Tools&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>make</strong> : Make is a utility used for building and managing software projects. It is used to automate the process of building executable programs and libraries from source code. The “make” utility uses a “Makefile” to define the build process. It is a text file that contains instructions for the “make” utility to execute. The “make” utility is often used in conjunction with the GCC compiler to build software projects. The “make” utility is included in the “Development Tools” package group. If you have already installed the “Development Tools” package group, you do not need to install the “make” utility separately.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># To install the make the following command:</span>
+sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>make
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>gcc-toolset-9-make</strong>: This package is a part of the GCC Toolset, which is a collection of development tools and libraries. It includes the “make” utility, which is used to manage and build software projects. The version number “9” in the package name refers to the specific version of the GCC Toolset. It is likely that this package includes GCC version 9 and the associated “make” utility.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># To install the gcc-toolset-9-make from source the following command:</span>
+wget<span class="w"> </span>https://dl.rockylinux.org/pub/rocky/8/Devel/x86_64/os/Packages/g/gcc-toolset-9-make-devel-4.2.1-2.el8.x86_64.rpm
+
+<span class="c1"># To install the gcc-toolset-9-make from source the following command:</span>
+sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>gcc-toolset-9-make-devel-4.2.1-2.el8.x86_64.rpm
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>readline-devel</strong>: The readline library is used for line editing during command-line input. It provides features like command history, editing capabilities, and tab completion. The “readline-devel” package contains the development files and headers needed to compile programs that use the readline library. If you are building a program that requires readline functionality, you would need this package.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># To install the GCC compiler, run the following command:</span>
+sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>readline-devel
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>perl-ExtUtils-Install</strong>: Perl is a popular scripting language used for various purposes, including system administration and web development. The “perl-ExtUtils-Install” package is a Perl module used for installing Perl extensions and modules. It provides tools and utilities to simplify the installation process of Perl packages.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># To install the perl-ExtUtils-Install package, run the following command:</span>
+<span class="w">  </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>perl-ExtUtils-Install
+</pre></div>
+</div>
+</section>
+</section>
+<section id="epics-installation-on-rocky-linux">
+<h2>EPICS Installation on Rocky Linux<a class="headerlink" href="#epics-installation-on-rocky-linux" title="Permalink to this heading"></a></h2>
+<p>To install EPICS on Rocky Linux, follow these steps:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># To install epics from source the following command:</span>
+wget<span class="w"> </span>https://epics-controls.org/download/base/base-3.15.6.tar.gz
+<span class="c1"># Then extract the file</span>
+<span class="w">  </span>tar<span class="w"> </span>-xvf<span class="w"> </span>base-3.15.6.tar.gz
+<span class="w">  </span><span class="c1"># Then go to the extracted directory</span>
+<span class="w">  </span><span class="nb">cd</span><span class="w"> </span>base-3.15.6
+<span class="w">  </span><span class="c1"># Then run the following command</span>
+<span class="w">  </span>make
+<span class="w">  </span><span class="c1"># Then run the following command</span>
+<span class="w">  </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+<p>Then you have to add the following to the .bashrc file
+which where you can store your environment variables.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># To open the .bashrc file</span>
+<span class="w">  </span>vim<span class="w"> </span>~/.bashrc
+<span class="w">  </span><span class="c1"># Then add the following lines to the file</span>
+<span class="w">  </span><span class="nb">export</span><span class="w"> </span><span class="nv">EPICS_BASE</span><span class="o">=</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/base-3.15.6
+<span class="w">  </span><span class="nb">export</span><span class="w"> </span><span class="nv">EPICS_HOST_ARCH</span><span class="o">=</span><span class="k">$(</span><span class="si">${</span><span class="nv">EPICS_BASE</span><span class="si">}</span>/startup/EpicsHostArch<span class="k">)</span>
+<span class="w">  </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">EPICS_BASE</span><span class="si">}</span>/bin/<span class="si">${</span><span class="nv">EPICS_HOST_ARCH</span><span class="si">}</span>:<span class="si">${</span><span class="nv">PATH</span><span class="si">}</span>
+</pre></div>
+</div>
+<p>Then to check if the installation is successful, run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the following command to check if the installation is successful</span>
+<span class="w">  </span>caget
+<span class="w">  </span><span class="c1"># Then you should see the following output</span>
+<span class="w">  </span>No<span class="w"> </span>pv<span class="w"> </span>name<span class="w"> </span>specified.<span class="w"> </span><span class="o">(</span><span class="s1">&#39;caget -h&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>help.<span class="o">)</span>
+</pre></div>
+</div>
+<p>if so then the installation is successful.</p>
+</section>
+<section id="epics-ioc-creation">
+<h2>EPICS IOC Creation<a class="headerlink" href="#epics-ioc-creation" title="Permalink to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># To create a new IOC</span>
+mkdir<span class="w"> </span>testIOC
+<span class="nb">cd</span><span class="w"> </span>testIOC
+makeBaseApp.pl<span class="w"> </span>-t<span class="w"> </span>-i<span class="w"> </span>ioc<span class="w"> </span>iocName
+<span class="nb">cd</span><span class="w"> </span>configure
+vim<span class="w"> </span>RELEASE
+<span class="c1"># make sure everything is correct in the file</span>
+<span class="nb">cd</span>
+<span class="nb">cd</span><span class="w"> </span>testIOC
+<span class="nb">cd</span><span class="w"> </span>testApp
+<span class="nb">cd</span><span class="w"> </span>db
+vim<span class="w"> </span>test.db
+</pre></div>
+</div>
+<p>Add the following lines to the test.db file</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>
+<span class="nb">cd</span><span class="w"> </span>testIOC
+vim<span class="w"> </span>Makefile
+</pre></div>
+</div>
+<p>Only the following lines should be in the Makefile file.</p>
+<p>record(ai, “test:first_pv”)
+{</p>
+<blockquote>
+<div><p>field(DESC,”test first record”)
+field(VAL, “40”)</p>
+</div></blockquote>
+<p>}</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>
+<span class="nb">cd</span><span class="w"> </span>testIOC
+vim<span class="w"> </span>Makefile
+</pre></div>
+</div>
+<section id="ioc-database">
+<h3>IOC Database<a class="headerlink" href="#ioc-database" title="Permalink to this heading"></a></h3>
+<p>In the IOC database, there are units of PV’s called <strong>Records</strong>. Each of these records have a specific type that allows them to alter the functionality of the PV. In every one of these records, there are <strong>fields</strong>, in which include attributes and some of the possible functions that that the PV could do.</p>
+<p><strong>Record:</strong> an object with a unique name, properties (<strong>fields</strong>) and contains information (data) where different data types can appear in different fields. A record also has the ability to perform actions on data.</p>
+<p><strong>Naming a PV:</strong> a PV is comprised of two parts
+- The record name
+- The name of a field belonging to that record</p>
+<p>For example: <code class="docutils literal notranslate"><span class="pre">ARIDI-PCT:CURRENT.</span></code> in this case most record fields can be accessed individually.</p>
+<p>Note: if no field name is given, Channel Access will default to using the .VAL field.</p>
+<p>A general structure of what you might see in an IOC in terms of records and fields is the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;test:Altitude_PV&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@user&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>VAL,<span class="w"> </span><span class="m">0</span>.0<span class="o">)</span>
+<span class="o">}</span>
+
+
+record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;test:Base_PV&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@user&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>VAL,<span class="w"> </span><span class="m">0</span>.0<span class="o">)</span>
+<span class="o">}</span>
+
+
+record<span class="o">(</span>calc,<span class="w"> </span><span class="s2">&quot;test:Calc_PV&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>field<span class="o">(</span>DESC,<span class="w"> </span><span class="s2">&quot;Calculation of side C (hypotenuse)&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>CALC,<span class="w"> </span><span class="s2">&quot;SQR(A*A + B*B)&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>INPA,<span class="w"> </span><span class="s2">&quot;test:Altitude_PV CP&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>INPB,<span class="w"> </span><span class="s2">&quot;test:Base_PV CP&quot;</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>As mentioned previously, altering these records could be done using the</p>
+<p>The documentation for the list of records on EPICS and their respective fields can be found on this page: <a class="reference external" href="https://epics.anl.gov/EpicsDocumentation/AppDevManuals/RecordRef/Recordref-3.html">https://epics.anl.gov/EpicsDocumentation/AppDevManuals/RecordRef/Recordref-3.html</a></p>
+<p>After curating your IOC database, in order to interact with it one would have to use a Channel Access (CA) Client.</p>
+<p>Some of the most used CA clients are the following:</p>
+<ul>
+<li><p>Command line tools(caget,caput,…)</p>
+<img alt="_images/EPICS_slide21.png" src="_images/EPICS_slide21.png" />
+</li>
+<li><p>ALH: Alarm Handler</p>
+<img alt="_images/EPICS_slide25.png" src="_images/EPICS_slide25.png" />
+<img alt="_images/EPICS_slide24.png" src="_images/EPICS_slide24.png" />
+</li>
+<li><p>StripTool: Strip-chart Plotting Tool</p>
+<img alt="_images/EPICS_slide27.png" src="_images/EPICS_slide27.png" />
+</li>
+<li><p>catQtDM: Display Manager</p>
+<img alt="_images/EPICS_slide29.png" src="_images/EPICS_slide29.png" />
+<img alt="_images/EPICS_slide41.png" src="_images/EPICS_slide41.png" />
+</li>
+</ul>
+</section>
+<section id="ioc-hypotenuse-project-exercise">
+<h3>IOC Hypotenuse Project Exercise<a class="headerlink" href="#ioc-hypotenuse-project-exercise" title="Permalink to this heading"></a></h3>
+<p>After knowing the Database section this is a small Exercise that would help you to put your knowledge into practice.</p>
+<ul class="simple">
+<li><p>Define a record that calculates the hypotenuse of a right triangle. The record should have two input fields, A and B, and one output field, VAL. The record should calculate the hypotenuse using the following formula:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[Hypo= \sqrt{A^2 + B^2}\]</div>
+<ul class="simple">
+<li><dl class="simple">
+<dt>To test :in your terminal</dt><dd><ul>
+<li><p>caput &lt;record_name&gt;:A &lt;value&gt;</p></li>
+<li><p>caput &lt;record_name&gt;:B &lt;value&gt;</p></li>
+<li><p>caget &lt;record_name&gt;</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<img alt="_images/triangle.png" src="_images/triangle.png" />
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;test:Altitude_PV&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@user&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>VAL,<span class="w"> </span><span class="m">0</span>.0<span class="o">)</span>
+<span class="o">}</span>
+
+
+record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;test:Base_PV&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@user&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>VAL,<span class="w"> </span><span class="m">0</span>.0<span class="o">)</span>
+<span class="o">}</span>
+
+
+record<span class="o">(</span>calc,<span class="w"> </span><span class="s2">&quot;test:Calc_PV&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>field<span class="o">(</span>DESC,<span class="w"> </span><span class="s2">&quot;Calculation of side C (hypotenuse)&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>CALC,<span class="w"> </span><span class="s2">&quot;SQR(A*A + B*B)&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>INPA,<span class="w"> </span><span class="s2">&quot;test:Altitude_PV CP&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>INPB,<span class="w"> </span><span class="s2">&quot;test:Base_PV CP&quot;</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>caput<span class="w"> </span>test:Altitude_PV<span class="w"> </span><span class="m">3</span>
+caput<span class="w"> </span>test:Base_PV<span class="w"> </span><span class="m">4</span>
+caget<span class="w"> </span>test:Calc_PV
+</pre></div>
+</div>
+<p>Then you should see the answer in the terminal</p>
+</section>
+</section>
+</section>
+<section id="pv-triangle-plotter-with-python">
+<span id="pv-triangle-plotter"></span><h1>PV Triangle Plotter with Python<a class="headerlink" href="#pv-triangle-plotter-with-python" title="Permalink to this heading"></a></h1>
+<p>A Python script for manipulating Process Variables (PV) and plotting a triangle based on the given base and altitude values.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">epics</span> <span class="kn">import</span> <span class="n">caget</span><span class="p">,</span> <span class="n">caput</span><span class="p">,</span> <span class="n">cainfo</span>
+
+
+<span class="k">def</span> <span class="nf">ca_put_info</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="n">caput</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">ca_get_info</span><span class="p">(</span><span class="n">pv</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">caget</span><span class="p">(</span><span class="n">pv</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">draw_triangle</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">altitude</span><span class="p">):</span>
+    <span class="c1"># Define the triangle vertices</span>
+    <span class="n">vertices</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">altitude</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+
+    <span class="c1"># Extract the x and y coordinates from the vertices</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">vertex</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">vertices</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">vertex</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">vertices</span><span class="p">]</span>
+
+    <span class="c1"># Plot the triangle with filled sides</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Create a cool gradient color map</span>
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;cool&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Fill the triangle with a cool gradient color</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="mf">0.3</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="mf">0.7</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+    <span class="c1"># Add labels to each side</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;base&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;hypo&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;altitdue&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Triangle&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;triangle_plot.png&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Only 2 numbers are allowed&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Args:&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">caget</span><span class="p">(</span><span class="s1">&#39;test:Base_PV&#39;</span><span class="p">))</span>
+        <span class="n">ca_put_info</span><span class="p">(</span><span class="s1">&#39;test:Base_PV&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">ca_put_info</span><span class="p">(</span><span class="s1">&#39;test:Altitude_PV&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">ca_get_info</span><span class="p">(</span><span class="s1">&#39;test:Calc_PV&#39;</span><span class="p">),</span> <span class="s1">&#39;is the calculated value&#39;</span><span class="p">)</span>
+
+        <span class="n">base</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">altitude</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">draw_triangle</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">altitude</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Process two numbers for PV manipulation&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;number1&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Base number&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;number2&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Altitude number&#39;</span><span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">number1</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">number2</span><span class="p">]</span>
+    <span class="n">main</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<p>The script requires two command-line arguments: <cite>number1</cite> and <cite>number2</cite>. These arguments represent the base and altitude values respectively.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>pv_triangle_plotter.py<span class="w"> </span>number1<span class="w"> </span>number2
+</pre></div>
+</div>
+</section>
+<section id="arguments">
+<h2>Arguments<a class="headerlink" href="#arguments" title="Permalink to this heading"></a></h2>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-arg-number1">
+<span class="sig-name descname"><span class="pre">number1</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-arg-number1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-arg-number2">
+<span class="sig-name descname"><span class="pre">number2</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-arg-number2" title="Permalink to this definition"></a></dt>
+<dd><p>Base and altitude numbers used to calculate the area and draw a triangle.</p>
+<p>Both arguments should be integers.</p>
+</dd></dl>
+
+</section>
+<section id="functionality">
+<h2>Functionality<a class="headerlink" href="#functionality" title="Permalink to this heading"></a></h2>
+<ol class="arabic">
+<li><p>Process Variable Manipulation:</p>
+<p>The script uses the <cite>epics</cite> library to interact with Process Variables (PVs) using the Channel Access (CA) protocol. The following functions are used for PV manipulation:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ca_put_info(pv,</span> <span class="pre">value)</span></code>: Writes a value to the specified PV.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ca_get_info(pv)</span></code>: Reads the value from the specified PV.</p></li>
+</ul>
+</li>
+<li><p>Triangle Plotting:</p>
+<p>The script includes a function named <code class="docutils literal notranslate"><span class="pre">draw_triangle(base,</span> <span class="pre">altitude)</span></code> that plots a triangle based on the given base and altitude values. The triangle is plotted using matplotlib.</p>
+<p>The function performs the following steps:</p>
+<ol class="loweralpha simple">
+<li><p>Defines the vertices of the triangle based on the given base and altitude.</p></li>
+<li><p>Extracts the x and y coordinates from the vertices.</p></li>
+<li><p>Plots the sides of the triangle using different colors.</p></li>
+<li><p>Fills the triangle with a gradient color.</p></li>
+<li><p>Adds labels to each side of the triangle.</p></li>
+<li><p>Sets the axis labels, title, and grid for the plot.</p></li>
+<li><p>Saves the plot as a PNG file.</p></li>
+</ol>
+<p>Note: The matplotlib library is required to run this script.</p>
+</li>
+</ol>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading"></a></h2>
+<p>To calculate the area and plot a triangle with a base of 5 and an altitude of 8, run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>pv_triangle_plotter.py<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">8</span>
+</pre></div>
+</div>
+<p>This will write the base and altitude values to the corresponding PVs, calculate the area using a separate PV, and save the triangle plot as <cite>triangle_plot.png</cite>.</p>
+<a class="reference internal image-reference" href="_images/triangle_plot.png"><img alt="_images/triangle_plot.png" class="align-center" src="_images/triangle_plot.png" style="width: 400px;" /></a>
+<section id="ioc-qt-based-scripting-c">
+<h3>IOC Qt-Based Scripting (C++)<a class="headerlink" href="#ioc-qt-based-scripting-c" title="Permalink to this heading"></a></h3>
+</section>
+</section>
+<section id="epics-ioc-creation-and-running-siemens-plc">
+<h2>EPICS IOC Creation and Running (SIEMENS PLC)<a class="headerlink" href="#epics-ioc-creation-and-running-siemens-plc" title="Permalink to this heading"></a></h2>
+</section>
+<section id="programmable-logic-controllers-plcs-epics-interface">
+<h2>Programmable Logic Controllers (PLCs) EPICS Interface<a class="headerlink" href="#programmable-logic-controllers-plcs-epics-interface" title="Permalink to this heading"></a></h2>
+</section>
+<section id="epics-qt-gui-design-and-implementation">
+<h2>EPICS-Qt (GUI design and Implementation)<a class="headerlink" href="#epics-qt-gui-design-and-implementation" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Computing.html" class="btn btn-neutral float-left" title="Scientific Computing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="DAQ.html" class="btn btn-neutral float-right" title="Data Collection and Analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Mohammed AbuSadeh, Ali Aljufairi, Tarek Razzaz.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
