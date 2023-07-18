@@ -307,8 +307,7 @@ Then you should see the answer in the terminal
 .. _pv-triangle-plotter:
 
 PV Triangle Plotter with Python
-===============================
-
+-------------------------------
 A Python script for manipulating Process Variables (PV) and plotting a triangle based on the given base and altitude values.
 
 
@@ -398,7 +397,7 @@ A Python script for manipulating Process Variables (PV) and plotting a triangle 
 
 
 Usage
------
+.....
 
 The script requires two command-line arguments: `number1` and `number2`. These arguments represent the base and altitude values respectively.
 
@@ -407,7 +406,7 @@ The script requires two command-line arguments: `number1` and `number2`. These a
    $ python pv_triangle_plotter.py number1 number2
 
 Arguments
----------
+.........
 
 .. option:: number1
 .. option:: number2
@@ -417,7 +416,7 @@ Arguments
    Both arguments should be integers.
 
 Functionality
--------------
+............
 
 1. Process Variable Manipulation:
 
@@ -443,7 +442,7 @@ Functionality
    Note: The matplotlib library is required to run this script.
 
 Example
--------
+.......
 
 To calculate the area and plot a triangle with a base of 5 and an altitude of 8, run the following command:
 
@@ -456,8 +455,6 @@ This will write the base and altitude values to the corresponding PVs, calculate
 .. image:: images/triangle_plot.png
    :width: 400
    :align: center
-
-
 
 
 

@@ -60,13 +60,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#ioc-hypotenuse-project-exercise">IOC Hypotenuse Project Exercise</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#pv-triangle-plotter-with-python">PV Triangle Plotter with Python</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#arguments">Arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#functionality">Functionality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#example">Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pv-triangle-plotter-with-python">PV Triangle Plotter with Python</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arguments">Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functionality">Functionality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ioc-qt-based-scripting-c">IOC Qt-Based Scripting (C++)</a></li>
 </ul>
 </li>
@@ -343,9 +341,8 @@ caget<span class="w"> </span>test:Calc_PV
 <p>Then you should see the answer in the terminal</p>
 </section>
 </section>
-</section>
 <section id="pv-triangle-plotter-with-python">
-<span id="pv-triangle-plotter"></span><h1>PV Triangle Plotter with Python<a class="headerlink" href="#pv-triangle-plotter-with-python" title="Permalink to this heading"></a></h1>
+<span id="pv-triangle-plotter"></span><h2>PV Triangle Plotter with Python<a class="headerlink" href="#pv-triangle-plotter-with-python" title="Permalink to this heading"></a></h2>
 <p>A Python script for manipulating Process Variables (PV) and plotting a triangle based on the given base and altitude values.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
@@ -425,14 +422,14 @@ caget<span class="w"> </span>test:Calc_PV
 </pre></div>
 </div>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h3>
 <p>The script requires two command-line arguments: <cite>number1</cite> and <cite>number2</cite>. These arguments represent the base and altitude values respectively.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>pv_triangle_plotter.py<span class="w"> </span>number1<span class="w"> </span>number2
 </pre></div>
 </div>
 </section>
 <section id="arguments">
-<h2>Arguments<a class="headerlink" href="#arguments" title="Permalink to this heading"></a></h2>
+<h3>Arguments<a class="headerlink" href="#arguments" title="Permalink to this heading"></a></h3>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-arg-number1">
 <span class="sig-name descname"><span class="pre">number1</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-arg-number1" title="Permalink to this definition"></a></dt>
@@ -447,7 +444,7 @@ caget<span class="w"> </span>test:Calc_PV
 
 </section>
 <section id="functionality">
-<h2>Functionality<a class="headerlink" href="#functionality" title="Permalink to this heading"></a></h2>
+<h3>Functionality<a class="headerlink" href="#functionality" title="Permalink to this heading"></a></h3>
 <ol class="arabic">
 <li><p>Process Variable Manipulation:</p>
 <p>The script uses the <cite>epics</cite> library to interact with Process Variables (PVs) using the Channel Access (CA) protocol. The following functions are used for PV manipulation:</p>
@@ -473,13 +470,14 @@ caget<span class="w"> </span>test:Calc_PV
 </ol>
 </section>
 <section id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading"></a></h2>
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading"></a></h3>
 <p>To calculate the area and plot a triangle with a base of 5 and an altitude of 8, run the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>pv_triangle_plotter.py<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">8</span>
 </pre></div>
 </div>
 <p>This will write the base and altitude values to the corresponding PVs, calculate the area using a separate PV, and save the triangle plot as <cite>triangle_plot.png</cite>.</p>
 <a class="reference internal image-reference" href="_images/triangle_plot.png"><img alt="_images/triangle_plot.png" class="align-center" src="_images/triangle_plot.png" style="width: 400px;" /></a>
+</section>
 <section id="ioc-qt-based-scripting-c">
 <h3>IOC Qt-Based Scripting (C++)<a class="headerlink" href="#ioc-qt-based-scripting-c" title="Permalink to this heading"></a></h3>
 </section>
