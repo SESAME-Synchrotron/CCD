@@ -460,6 +460,129 @@ Python Server script for handling commands with epics PVs
 ---------------------------------------------------------
 This script implements a server that handles commands received from clients over a TCP/IP connection.
 
+.. code-block:: python
+  import socket
+  import subprocess
+  import threading
+  import re
+  from functools import reduce
+
+  #wrie  a function that stores faild command in a file
+  def store_failed_command(command):
+      # Logic to store failed command
+      with open('failed_command.txt', 'a') as file:
+          file.write(command + '\n')
+          
+  def get_current_time():
+      # Logic to get current time
+      current_time = subprocess.check_output('date', shell=True).decode().strip()
+      format_time = re.search(r'(\d{2}:\d{2}:\d{2})', current_time)
+      return format_time.group(1)
+
+  def calculate_circle_area(radius):
+      # Logic to calculate circle area
+      area = 3.14159 * radius * radius
+      return area
+
+
+  def calculate_multiplication(numbers):
+      # Logic to calculate multiplication
+      result = reduce(lambda x, y: x * y, numbers)
+      return result
+
+
+  def get_ip_address():
+      # Logic to get IP address
+      hostname = socket.gethostname()
+      ip_address = socket.gethostbyname(hostname)
+      return ip_address
+
+
+  def handle_command(command):
+      if command.startswith('print '):
+          message = command[6:]  # Extract the message to be printed
+          print(message)
+          return f"'{message}' from the Server."
+      elif command == 'time?':
+          return get_current_time()
+      elif command.startswith('area'):
+          match = re.search(r'area pi,(\d+(\.\d+)?)', command)
+          if match:
+              radius = float(match.group(1))
+              return calculate_circle_area(radius)
+      elif command.startswith('multi'):
+          match = re.search(r'multi ([\d,]+)', command)
+          if match:
+              numbers = list(map(int, match.group(1).split(',')))
+              return calculate_multiplication(numbers)
+      elif command == 'ip?':
+          return get_ip_address()
+      elif command.startswith('smax'):
+          match = re.search(r'smax ([\d,]+)', command)
+          if match:
+              numbers = list(map(int, match.group(1).split(',')))
+              return calculate_smax(numbers)
+
+      return f"Invalid command. {store_failed_command(command)} is not recognized"
+
+
+  def calculate_smax(numbers):
+      # Logic to calculate smax
+      max_product = reduce(lambda x, y: max(x, x * y), numbers)
+      return max_product
+
+
+  class Server:
+      def __init__(self, host, port):
+          self.host = host
+          self.port = port
+
+      def start(self):
+          self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+          self.server_socket.bind((self.host, self.port))
+          self.server_socket.listen(1)
+          print(f"Server listening on {self.host}:{self.port}")
+
+          while True:
+              client_socket, client_address = self.server_socket.accept()
+              print(
+                  f"Accepted connection from {client_address[0]}:{client_address[1]}")
+              client_thread = threading.Thread(
+                  target=self.handle_client, args=(client_socket,))
+              client_thread.start()
+
+      def handle_client(self, client_socket):
+          while True:
+              data = client_socket.recv(1024).decode().strip()
+              if not data:
+                  break
+              response = handle_command(data)
+              client_socket.sendall(str(response).encode())
+
+          client_socket.close()
+
+
+  if __name__ == '__main__':
+      host = 'localhost'
+      port = 8000
+
+      # Start the server
+      server = Server(host, port)
+      server_thread = threading.Thread(target=server.start)
+      server_thread.start()
+
+      while True:
+          command = input("Enter a command: ")
+          if command.lower() == 'exit':
+              break
+
+          response = handle_command(command)
+          print(response)
+
+      # Stop the server (optional)
+      # server.server_socket.close()
+
+
 Usage
 .....
 To start the server, run the script with the desired host and port:
@@ -592,6 +715,194 @@ An example usage of the script:
 4. To exit the server, enter the command "exit".
 
 Note: Make sure to stop the server gracefully by uncommenting the line ``server.server_socket.close()`` before exiting the script.
+
+Comuniacte EPICS IOC with Python Server
+----------------------------------------
+
+The protocol file defines the communication protocol between the PVs (Process Variables) and the Python server.
+
+Protocol File Content
+.....................
+
+
+
+The following changes were made to the protocol file:
+
+1. Timeout Configuration
+   - Timeout values for write, read, and reply operations were set to "disconnect" using the following directives:
+     - ``@writetimeout { disconnect; }``
+     - ``@replytimeout { disconnect; }``
+     - ``@readtimeout { disconnect; }``
+
+2. Terminator Definitions
+   - The input and output terminators were defined as follows:
+     - ``InTerminator = "\r\n";``
+     - ``OutTerminator = "\r";``
+
+3. Replay Timeout
+   - The replay timeout value was set to 11200000000 using the directive:
+     - ``ReplayTimeout = 11200000000;``
+
+4. Command Definitions
+   - Several commands were defined with their respective input and output formats:
+     - ``getTime``: Retrieves the current time.
+     - ``getIP``: Retrieves the IP address.
+     - ``calcarea``: Calculates the area of a circle.
+     - ``smax``: Calculates the maximum product of three numbers.
+     - ``multi``: Calculates the multiplication of three numbers.
+.. code-block:: bash
+
+  getTime {
+    out "time?";
+    in "%d:%d:%d";
+  
+  }
+
+  getIP {
+    out "ip?";
+    in "%s";}
+
+  calcarea {
+    out "area pi,%f";
+    in "%f";
+    }
+
+  smax {
+  out "smax %(\$1)d,%(\$2)d,%(\$3)d" ;
+  in "%d";
+  }
+
+  multi {
+  out "multi %(\$1)d,%(\$2)d,%(\$3)d" ;
+  in "%d";
+  }
+
+Record Changes
+..............
+.. code-block:: bash
+
+  record(ai, "PyServer:Time") {
+    field(DTYP, "stream")
+    field(INP, "@python.proto getTime PyServer")  
+    field(SCAN, "1 second")
+  }
+
+
+  record(stringin, "PyServer:IP") {
+    field(DTYP, "stream")
+    field(INP, "@python.proto getIP PyServer")  
+    field(SCAN, "1 second")
+  }
+
+
+  record(ao, "PyServer:CalcAreaInput") {
+    field(DTYP, "stream")
+    field(OUT, "@python.proto calcarea PyServer")
+  }
+
+  record(ai, "PyServer:CalcAreaResult") {
+    field(DTYP, "stream")
+    field(INP, "@python.proto calcarea PyServer")
+  }
+
+  record(ai, "PyServer:smax") {
+  field(DTYP, "stream")
+  field(INP, "@python.proto smax(X,Y,Z) PyServer")
+  field(SCAN, "1 second")
+  }
+
+  record(ai, "PyServer:multi") {
+  field(DTYP, "stream")
+  field(INP, "@python.proto multi(A,B,C) PyServer")
+  field(SCAN, "1 second")
+  }
+
+  record(ai, "X") {
+      field(INP, "@user")
+      field(VAL, 4)
+  } 
+  record(ai, "Y") {
+      field(INP, "@user")
+      field(VAL, 1)
+  } 
+  record(ai, "Z") {
+      field(INP, "@user")
+      field(VAL, 15)
+  }
+  record(ai, "A") {
+      field(INP, "@user")
+      field(VAL, 24)
+  } 
+  record(ai, "B") {
+      field(INP, "@user")
+      field(VAL, 21)
+  } 
+  record(ai, "C") {
+      field(INP, "@user")
+      field(VAL, 25)
+    }
+The record definitions in the PV configuration file were modified to use the Python server protocol for communication.
+
+
+The following changes were made to the record definitions:
+
+1. PyServer:Time (ai)
+   - The input field (INP) was updated to use the getTime command from the PyServer protocol.
+
+2. PyServer:IP (stringin)
+   - The input field (INP) was updated to use the getIP command from the PyServer protocol.
+
+3. PyServer:CalcAreaInput (ao)
+   - The output field (OUT) was updated to use the calcarea command from the PyServer protocol.
+
+4. PyServer:CalcAreaResult (ai)
+   - The input field (INP) was updated to use the calcarea command from the PyServer protocol.
+
+5. PyServer:smax (ai)
+   - The input field (INP) was updated to use the smax command from the PyServer protocol.
+
+6. PyServer:multi (ai)
+   - The input field (INP) was updated to use the multi command from the PyServer protocol.
+
+7. X, Y, Z, A, B, C (ai)
+   - These user-defined records were added to provide input values for the PyServer protocol commands.
+
+st.cmd Changes
+..............
+
+The st.cmd script was modified to include the necessary configurations for the Python server protocol.
+
+
+The following changes were made to the st.cmd script:
+
+1. STREAM_PROTOCOL_PATH
+   - The environment variable "STREAM_PROTOCOL_PATH" was set to "path/to/protcol file".
+
+2. drvAsynIPPortConfigure
+   - The drvAsynIPPortConfigure function was called to configure the "PyServer" port with the following parameters:
+     - Port name: "PyServer"
+     - Address: "localhost:8000"
+     - No auto-connect, no auto-disconnect, and no process variable updates were specified (0, 0, 0).
+
+Makefile Changes
+................
+The makefile in the src directory was modified to include the required dependencies for the Python server protocol.
+
+
+The following changes were made to the makefile:
+
+1. test_DBD
+   - The following additional database (DBD) files were included as dependencies:
+     - asyn.dbd
+     - drvAsynIPPort.dbd
+     - calc.dbd
+     - stream.dbd
+
+2. test_LIBS
+   - The following additional libraries were included as dependencies:
+     - asyn
+     - stream
+     - calc
 
 
 

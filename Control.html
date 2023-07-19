@@ -84,6 +84,13 @@
 <li class="toctree-l3"><a class="reference internal" href="#thread-server-thread">Thread: server_thread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#comuniacte-epics-ioc-with-python-server">Comuniacte EPICS IOC with Python Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#protocol-file-content">Protocol File Content</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#record-changes">Record Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#st-cmd-changes">st.cmd Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#makefile-changes">Makefile Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ioc-qt-based-scripting-c">IOC Qt-Based Scripting (C++)</a></li>
 </ul>
 </li>
@@ -613,6 +620,211 @@ Handles a client connection by receiving commands and sending responses.</p></li
 <li><p>To exit the server, enter the command “exit”.</p></li>
 </ol>
 <p>Note: Make sure to stop the server gracefully by uncommenting the line <code class="docutils literal notranslate"><span class="pre">server.server_socket.close()</span></code> before exiting the script.</p>
+</section>
+</section>
+<section id="comuniacte-epics-ioc-with-python-server">
+<h2>Comuniacte EPICS IOC with Python Server<a class="headerlink" href="#comuniacte-epics-ioc-with-python-server" title="Permalink to this heading"></a></h2>
+<p>The protocol file defines the communication protocol between the PVs (Process Variables) and the Python server.</p>
+<section id="protocol-file-content">
+<h3>Protocol File Content<a class="headerlink" href="#protocol-file-content" title="Permalink to this heading"></a></h3>
+<p>The following changes were made to the protocol file:</p>
+<ol class="arabic">
+<li><p>Timeout Configuration
+- Timeout values for write, read, and reply operations were set to “disconnect” using the following directives:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;writetimeout</span> <span class="pre">{</span> <span class="pre">disconnect;</span> <span class="pre">}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;replytimeout</span> <span class="pre">{</span> <span class="pre">disconnect;</span> <span class="pre">}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;readtimeout</span> <span class="pre">{</span> <span class="pre">disconnect;</span> <span class="pre">}</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Terminator Definitions
+- The input and output terminators were defined as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">InTerminator</span> <span class="pre">=</span> <span class="pre">&quot;\r\n&quot;;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OutTerminator</span> <span class="pre">=</span> <span class="pre">&quot;\r&quot;;</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Replay Timeout
+- The replay timeout value was set to 11200000000 using the directive:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ReplayTimeout</span> <span class="pre">=</span> <span class="pre">11200000000;</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Command Definitions
+- Several commands were defined with their respective input and output formats:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">getTime</span></code>: Retrieves the current time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getIP</span></code>: Retrieves the IP address.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">calcarea</span></code>: Calculates the area of a circle.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">smax</span></code>: Calculates the maximum product of three numbers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">multi</span></code>: Calculates the multiplication of three numbers.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>getTime<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>out<span class="w"> </span><span class="s2">&quot;time?&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;%d:%d:%d&quot;</span><span class="p">;</span>
+
+<span class="o">}</span>
+
+getIP<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>out<span class="w"> </span><span class="s2">&quot;ip?&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;%s&quot;</span><span class="p">;</span><span class="o">}</span>
+
+calcarea<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>out<span class="w"> </span><span class="s2">&quot;area pi,%f&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;%f&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="o">}</span>
+
+smax<span class="w"> </span><span class="o">{</span>
+out<span class="w"> </span><span class="s2">&quot;smax %(\$1)d,%(\$2)d,%(\$3)d&quot;</span><span class="w"> </span><span class="p">;</span>
+<span class="k">in</span><span class="w"> </span><span class="s2">&quot;%d&quot;</span><span class="p">;</span>
+<span class="o">}</span>
+
+multi<span class="w"> </span><span class="o">{</span>
+out<span class="w"> </span><span class="s2">&quot;multi %(\$1)d,%(\$2)d,%(\$3)d&quot;</span><span class="w"> </span><span class="p">;</span>
+<span class="k">in</span><span class="w"> </span><span class="s2">&quot;%d&quot;</span><span class="p">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</section>
+<section id="record-changes">
+<h3>Record Changes<a class="headerlink" href="#record-changes" title="Permalink to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;PyServer:Time&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>field<span class="o">(</span>DTYP,<span class="w"> </span><span class="s2">&quot;stream&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@python.proto getTime PyServer&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>SCAN,<span class="w"> </span><span class="s2">&quot;1 second&quot;</span><span class="o">)</span>
+<span class="o">}</span>
+
+
+record<span class="o">(</span>stringin,<span class="w"> </span><span class="s2">&quot;PyServer:IP&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>field<span class="o">(</span>DTYP,<span class="w"> </span><span class="s2">&quot;stream&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@python.proto getIP PyServer&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>SCAN,<span class="w"> </span><span class="s2">&quot;1 second&quot;</span><span class="o">)</span>
+<span class="o">}</span>
+
+
+record<span class="o">(</span>ao,<span class="w"> </span><span class="s2">&quot;PyServer:CalcAreaInput&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>field<span class="o">(</span>DTYP,<span class="w"> </span><span class="s2">&quot;stream&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>OUT,<span class="w"> </span><span class="s2">&quot;@python.proto calcarea PyServer&quot;</span><span class="o">)</span>
+<span class="o">}</span>
+
+record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;PyServer:CalcAreaResult&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>field<span class="o">(</span>DTYP,<span class="w"> </span><span class="s2">&quot;stream&quot;</span><span class="o">)</span>
+<span class="w">  </span>field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@python.proto calcarea PyServer&quot;</span><span class="o">)</span>
+<span class="o">}</span>
+
+record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;PyServer:smax&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+field<span class="o">(</span>DTYP,<span class="w"> </span><span class="s2">&quot;stream&quot;</span><span class="o">)</span>
+field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@python.proto smax(X,Y,Z) PyServer&quot;</span><span class="o">)</span>
+field<span class="o">(</span>SCAN,<span class="w"> </span><span class="s2">&quot;1 second&quot;</span><span class="o">)</span>
+<span class="o">}</span>
+
+record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;PyServer:multi&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+field<span class="o">(</span>DTYP,<span class="w"> </span><span class="s2">&quot;stream&quot;</span><span class="o">)</span>
+field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@python.proto multi(A,B,C) PyServer&quot;</span><span class="o">)</span>
+field<span class="o">(</span>SCAN,<span class="w"> </span><span class="s2">&quot;1 second&quot;</span><span class="o">)</span>
+<span class="o">}</span>
+
+record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;X&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@user&quot;</span><span class="o">)</span>
+<span class="w">    </span>field<span class="o">(</span>VAL,<span class="w"> </span><span class="m">4</span><span class="o">)</span>
+<span class="o">}</span>
+record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;Y&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@user&quot;</span><span class="o">)</span>
+<span class="w">    </span>field<span class="o">(</span>VAL,<span class="w"> </span><span class="m">1</span><span class="o">)</span>
+<span class="o">}</span>
+record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;Z&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@user&quot;</span><span class="o">)</span>
+<span class="w">    </span>field<span class="o">(</span>VAL,<span class="w"> </span><span class="m">15</span><span class="o">)</span>
+<span class="o">}</span>
+record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;A&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@user&quot;</span><span class="o">)</span>
+<span class="w">    </span>field<span class="o">(</span>VAL,<span class="w"> </span><span class="m">24</span><span class="o">)</span>
+<span class="o">}</span>
+record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;B&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@user&quot;</span><span class="o">)</span>
+<span class="w">    </span>field<span class="o">(</span>VAL,<span class="w"> </span><span class="m">21</span><span class="o">)</span>
+<span class="o">}</span>
+record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;C&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>field<span class="o">(</span>INP,<span class="w"> </span><span class="s2">&quot;@user&quot;</span><span class="o">)</span>
+<span class="w">    </span>field<span class="o">(</span>VAL,<span class="w"> </span><span class="m">25</span><span class="o">)</span>
+<span class="w">  </span><span class="o">}</span>
+</pre></div>
+</div>
+<p>The record definitions in the PV configuration file were modified to use the Python server protocol for communication.</p>
+<p>The following changes were made to the record definitions:</p>
+<ol class="arabic simple">
+<li><p>PyServer:Time (ai)
+- The input field (INP) was updated to use the getTime command from the PyServer protocol.</p></li>
+<li><p>PyServer:IP (stringin)
+- The input field (INP) was updated to use the getIP command from the PyServer protocol.</p></li>
+<li><p>PyServer:CalcAreaInput (ao)
+- The output field (OUT) was updated to use the calcarea command from the PyServer protocol.</p></li>
+<li><p>PyServer:CalcAreaResult (ai)
+- The input field (INP) was updated to use the calcarea command from the PyServer protocol.</p></li>
+<li><p>PyServer:smax (ai)
+- The input field (INP) was updated to use the smax command from the PyServer protocol.</p></li>
+<li><p>PyServer:multi (ai)
+- The input field (INP) was updated to use the multi command from the PyServer protocol.</p></li>
+<li><p>X, Y, Z, A, B, C (ai)
+- These user-defined records were added to provide input values for the PyServer protocol commands.</p></li>
+</ol>
+</section>
+<section id="st-cmd-changes">
+<h3>st.cmd Changes<a class="headerlink" href="#st-cmd-changes" title="Permalink to this heading"></a></h3>
+<p>The st.cmd script was modified to include the necessary configurations for the Python server protocol.</p>
+<p>The following changes were made to the st.cmd script:</p>
+<ol class="arabic">
+<li><p>STREAM_PROTOCOL_PATH
+- The environment variable “STREAM_PROTOCOL_PATH” was set to “path/to/protcol file”.</p></li>
+<li><p>drvAsynIPPortConfigure
+- The drvAsynIPPortConfigure function was called to configure the “PyServer” port with the following parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Port name: “PyServer”</p></li>
+<li><p>Address: “localhost:8000”</p></li>
+<li><p>No auto-connect, no auto-disconnect, and no process variable updates were specified (0, 0, 0).</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</section>
+<section id="makefile-changes">
+<h3>Makefile Changes<a class="headerlink" href="#makefile-changes" title="Permalink to this heading"></a></h3>
+<p>The makefile in the src directory was modified to include the required dependencies for the Python server protocol.</p>
+<p>The following changes were made to the makefile:</p>
+<ol class="arabic">
+<li><p>test_DBD
+- The following additional database (DBD) files were included as dependencies:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>asyn.dbd</p></li>
+<li><p>drvAsynIPPort.dbd</p></li>
+<li><p>calc.dbd</p></li>
+<li><p>stream.dbd</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>test_LIBS
+- The following additional libraries were included as dependencies:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>asyn</p></li>
+<li><p>stream</p></li>
+<li><p>calc</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
 </section>
 <section id="ioc-qt-based-scripting-c">
 <h3>IOC Qt-Based Scripting (C++)<a class="headerlink" href="#ioc-qt-based-scripting-c" title="Permalink to this heading"></a></h3>
