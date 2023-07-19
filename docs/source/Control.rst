@@ -456,6 +456,143 @@ This will write the base and altitude values to the corresponding PVs, calculate
    :width: 400
    :align: center
 
+Python Server script for handling commands with epics PVs
+---------------------------------------------------------
+This script implements a server that handles commands received from clients over a TCP/IP connection.
+
+Usage
+.....
+To start the server, run the script with the desired host and port:
+
+.. code-block:: python
+
+    if __name__ == '__main__':
+        host = 'localhost'
+        port = 8000
+        server = Server(host, port)
+        server_thread = threading.Thread(target=server.start)
+        server_thread.start()
+
+The server will listen for incoming connections on the specified host and port.
+
+Commands
+........
+The server recognizes the following commands:
+
+1. Print Message
+   Syntax: ``print <message>``
+   Description: Prints the specified message.
+
+2. Get Current Time
+   Syntax: ``time?``
+   Description: Returns the current time.
+
+3. Calculate Circle Area
+   Syntax: ``area pi,<radius>``
+   Description: Calculates the area of a circle with the given radius.
+
+4. Calculate Multiplication
+   Syntax: ``multi <number1,number2,...>``
+   Description: Calculates the multiplication of the specified numbers.
+
+5. Get IP Address
+   Syntax: ``ip?``
+   Description: Returns the IP address of the server.
+
+6. Calculate Smax
+   Syntax: ``smax <number1,number2,...>``
+   Description: Calculates the maximum product of the specified numbers.
+
+Failed Command Storage
+......................
+
+If an invalid command is received, it is stored in a file called ``failed_command.txt`` for reference.
+
+Class: Server
+.............
+This class represents the server and provides methods to start and handle client connections.
+
+Methods
+.......
+
+Initializes the Server object with the specified host and port.
+
+- ``start(self)``
+  Starts the server and listens for incoming connections.
+
+- ``handle_client(self, client_socket)``
+  Handles a client connection by receiving commands and sending responses.
+
+Function: store_failed_command
+..............................
+This function stores a failed command in the file ``failed_command.txt``.
+
+Function: get_current_time
+.........................
+
+This function retrieves the current time.
+
+Function: calculate_circle_area
+................................
+
+This function calculates the area of a circle given its radius.
+
+Function: calculate_multiplication
+...................................
+
+This function calculates the multiplication of a list of numbers.
+
+Function: get_ip_address
+........................
+
+This function retrieves the IP address of the server.
+
+Function: handle_command
+........................
+
+This function handles the incoming command and returns the corresponding response.
+
+Function: calculate_smax
+........................
+
+This function calculates the maximum product of a list of numbers.
+
+Thread: client_thread
+.....................
+
+This thread is created for each client connection and handles the communication with the client.
+
+Thread: server_thread
+.....................
+
+This thread is created to start the server and listen for incoming connections.
+
+Dependencies
+............
+
+This script requires the following modules:
+
+- socket
+- subprocess
+- threading
+- re
+- functools
+
+Example
+.......
+
+An example usage of the script:
+
+1. Start the server by running the script with the desired host and port.
+
+2. Connect a client to the server using a TCP/IP connection.
+
+3. Send commands to the server and receive the corresponding responses.
+
+4. To exit the server, enter the command "exit".
+
+Note: Make sure to stop the server gracefully by uncommenting the line ``server.server_socket.close()`` before exiting the script.
+
 
 
 
