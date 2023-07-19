@@ -65,6 +65,25 @@
 <li class="toctree-l3"><a class="reference internal" href="#arguments">Arguments</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#functionality">Functionality</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#python-server-script-for-handling-commands-with-epics-pvs">Python Server script for handling commands with epics PVs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#commands">Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#failed-command-storage">Failed Command Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#class-server">Class: Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-store-failed-command">Function: store_failed_command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-get-current-time">Function: get_current_time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-calculate-circle-area">Function: calculate_circle_area</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-calculate-multiplication">Function: calculate_multiplication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-get-ip-address">Function: get_ip_address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-handle-command">Function: handle_command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-calculate-smax">Function: calculate_smax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#thread-client-thread">Thread: client_thread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#thread-server-thread">Thread: server_thread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ioc-qt-based-scripting-c">IOC Qt-Based Scripting (C++)</a></li>
 </ul>
 </li>
@@ -477,6 +496,123 @@ caget<span class="w"> </span>test:Calc_PV
 </div>
 <p>This will write the base and altitude values to the corresponding PVs, calculate the area using a separate PV, and save the triangle plot as <cite>triangle_plot.png</cite>.</p>
 <a class="reference internal image-reference" href="_images/triangle_plot.png"><img alt="_images/triangle_plot.png" class="align-center" src="_images/triangle_plot.png" style="width: 400px;" /></a>
+</section>
+</section>
+<section id="python-server-script-for-handling-commands-with-epics-pvs">
+<h2>Python Server script for handling commands with epics PVs<a class="headerlink" href="#python-server-script-for-handling-commands-with-epics-pvs" title="Permalink to this heading"></a></h2>
+<p>This script implements a server that handles commands received from clients over a TCP/IP connection.</p>
+<section id="id1">
+<h3>Usage<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>To start the server, run the script with the desired host and port:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;localhost&#39;</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="mi">8000</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+    <span class="n">server_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">server</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+    <span class="n">server_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The server will listen for incoming connections on the specified host and port.</p>
+</section>
+<section id="commands">
+<h3>Commands<a class="headerlink" href="#commands" title="Permalink to this heading"></a></h3>
+<p>The server recognizes the following commands:</p>
+<ol class="arabic simple">
+<li><p>Print Message
+Syntax: <code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">&lt;message&gt;</span></code>
+Description: Prints the specified message.</p></li>
+<li><p>Get Current Time
+Syntax: <code class="docutils literal notranslate"><span class="pre">time?</span></code>
+Description: Returns the current time.</p></li>
+<li><p>Calculate Circle Area
+Syntax: <code class="docutils literal notranslate"><span class="pre">area</span> <span class="pre">pi,&lt;radius&gt;</span></code>
+Description: Calculates the area of a circle with the given radius.</p></li>
+<li><p>Calculate Multiplication
+Syntax: <code class="docutils literal notranslate"><span class="pre">multi</span> <span class="pre">&lt;number1,number2,...&gt;</span></code>
+Description: Calculates the multiplication of the specified numbers.</p></li>
+<li><p>Get IP Address
+Syntax: <code class="docutils literal notranslate"><span class="pre">ip?</span></code>
+Description: Returns the IP address of the server.</p></li>
+<li><p>Calculate Smax
+Syntax: <code class="docutils literal notranslate"><span class="pre">smax</span> <span class="pre">&lt;number1,number2,...&gt;</span></code>
+Description: Calculates the maximum product of the specified numbers.</p></li>
+</ol>
+</section>
+<section id="failed-command-storage">
+<h3>Failed Command Storage<a class="headerlink" href="#failed-command-storage" title="Permalink to this heading"></a></h3>
+<p>If an invalid command is received, it is stored in a file called <code class="docutils literal notranslate"><span class="pre">failed_command.txt</span></code> for reference.</p>
+</section>
+<section id="class-server">
+<h3>Class: Server<a class="headerlink" href="#class-server" title="Permalink to this heading"></a></h3>
+<p>This class represents the server and provides methods to start and handle client connections.</p>
+</section>
+<section id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
+<p>Initializes the Server object with the specified host and port.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">start(self)</span></code>
+Starts the server and listens for incoming connections.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">handle_client(self,</span> <span class="pre">client_socket)</span></code>
+Handles a client connection by receiving commands and sending responses.</p></li>
+</ul>
+</section>
+<section id="function-store-failed-command">
+<h3>Function: store_failed_command<a class="headerlink" href="#function-store-failed-command" title="Permalink to this heading"></a></h3>
+<p>This function stores a failed command in the file <code class="docutils literal notranslate"><span class="pre">failed_command.txt</span></code>.</p>
+</section>
+<section id="function-get-current-time">
+<h3>Function: get_current_time<a class="headerlink" href="#function-get-current-time" title="Permalink to this heading"></a></h3>
+<p>This function retrieves the current time.</p>
+</section>
+<section id="function-calculate-circle-area">
+<h3>Function: calculate_circle_area<a class="headerlink" href="#function-calculate-circle-area" title="Permalink to this heading"></a></h3>
+<p>This function calculates the area of a circle given its radius.</p>
+</section>
+<section id="function-calculate-multiplication">
+<h3>Function: calculate_multiplication<a class="headerlink" href="#function-calculate-multiplication" title="Permalink to this heading"></a></h3>
+<p>This function calculates the multiplication of a list of numbers.</p>
+</section>
+<section id="function-get-ip-address">
+<h3>Function: get_ip_address<a class="headerlink" href="#function-get-ip-address" title="Permalink to this heading"></a></h3>
+<p>This function retrieves the IP address of the server.</p>
+</section>
+<section id="function-handle-command">
+<h3>Function: handle_command<a class="headerlink" href="#function-handle-command" title="Permalink to this heading"></a></h3>
+<p>This function handles the incoming command and returns the corresponding response.</p>
+</section>
+<section id="function-calculate-smax">
+<h3>Function: calculate_smax<a class="headerlink" href="#function-calculate-smax" title="Permalink to this heading"></a></h3>
+<p>This function calculates the maximum product of a list of numbers.</p>
+</section>
+<section id="thread-client-thread">
+<h3>Thread: client_thread<a class="headerlink" href="#thread-client-thread" title="Permalink to this heading"></a></h3>
+<p>This thread is created for each client connection and handles the communication with the client.</p>
+</section>
+<section id="thread-server-thread">
+<h3>Thread: server_thread<a class="headerlink" href="#thread-server-thread" title="Permalink to this heading"></a></h3>
+<p>This thread is created to start the server and listen for incoming connections.</p>
+</section>
+<section id="dependencies">
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h3>
+<p>This script requires the following modules:</p>
+<ul class="simple">
+<li><p>socket</p></li>
+<li><p>subprocess</p></li>
+<li><p>threading</p></li>
+<li><p>re</p></li>
+<li><p>functools</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>Example<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<p>An example usage of the script:</p>
+<ol class="arabic simple">
+<li><p>Start the server by running the script with the desired host and port.</p></li>
+<li><p>Connect a client to the server using a TCP/IP connection.</p></li>
+<li><p>Send commands to the server and receive the corresponding responses.</p></li>
+<li><p>To exit the server, enter the command “exit”.</p></li>
+</ol>
+<p>Note: Make sure to stop the server gracefully by uncommenting the line <code class="docutils literal notranslate"><span class="pre">server.server_socket.close()</span></code> before exiting the script.</p>
 </section>
 <section id="ioc-qt-based-scripting-c">
 <h3>IOC Qt-Based Scripting (C++)<a class="headerlink" href="#ioc-qt-based-scripting-c" title="Permalink to this heading"></a></h3>
