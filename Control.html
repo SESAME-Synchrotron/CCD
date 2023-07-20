@@ -91,9 +91,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#record-changes">Record Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#st-cmd-changes">st.cmd Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#makefile-changes">Makefile Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ioc-qt-based-scripting-c">IOC Qt-Based Scripting (C++)</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#ioc-qt-based-scripting-c">IOC Qt-Based Scripting (C++)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#epics-ioc-creation-and-running-siemens-plc">EPICS IOC Creation and Running (SIEMENS PLC)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#programmable-logic-controllers-plcs-epics-interface">Programmable Logic Controllers (PLCs) EPICS Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#epics-qt-gui-design-and-implementation">EPICS-Qt (GUI design and Implementation)</a></li>
@@ -225,6 +225,12 @@ which where you can store your environment variables.</p>
 </pre></div>
 </div>
 <p>Then to check if the installation is successful, run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Then add the following lines to the file</span>
+caget<span class="w"> </span>-h
+<span class="c1"># Then you should see the following output</span>
+No<span class="w"> </span>pv<span class="w"> </span>name<span class="w"> </span>specified.<span class="w"> </span><span class="o">(</span><span class="s1">&#39;caget -h&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>help.<span class="o">)</span>
+</pre></div>
+</div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the following command to check if the installation is successful</span>
 <span class="w">  </span>caget
 <span class="w">  </span><span class="c1"># Then you should see the following output</span>
@@ -508,6 +514,128 @@ caget<span class="w"> </span>test:Calc_PV
 <section id="python-server-script-for-handling-commands-with-epics-pvs">
 <h2>Python Server script for handling commands with epics PVs<a class="headerlink" href="#python-server-script-for-handling-commands-with-epics-pvs" title="Permalink to this heading"></a></h2>
 <p>This script implements a server that handles commands received from clients over a TCP/IP connection.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+
+<span class="c1">#wrie  a function that stores faild command in a file</span>
+<span class="k">def</span> <span class="nf">store_failed_command</span><span class="p">(</span><span class="n">command</span><span class="p">):</span>
+    <span class="c1"># Logic to store failed command</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;failed_command.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">command</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_current_time</span><span class="p">():</span>
+    <span class="c1"># Logic to get current time</span>
+    <span class="n">current_time</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">format_time</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\d</span><span class="si">{2}</span><span class="s1">:\d</span><span class="si">{2}</span><span class="s1">:\d</span><span class="si">{2}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">current_time</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">format_time</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">calculate_circle_area</span><span class="p">(</span><span class="n">radius</span><span class="p">):</span>
+    <span class="c1"># Logic to calculate circle area</span>
+    <span class="n">area</span> <span class="o">=</span> <span class="mf">3.14159</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">radius</span>
+    <span class="k">return</span> <span class="n">area</span>
+
+
+<span class="k">def</span> <span class="nf">calculate_multiplication</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="c1"># Logic to calculate multiplication</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="n">numbers</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="k">def</span> <span class="nf">get_ip_address</span><span class="p">():</span>
+    <span class="c1"># Logic to get IP address</span>
+    <span class="n">hostname</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">()</span>
+    <span class="n">ip_address</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyname</span><span class="p">(</span><span class="n">hostname</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ip_address</span>
+
+
+<span class="k">def</span> <span class="nf">handle_command</span><span class="p">(</span><span class="n">command</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">command</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;print &#39;</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">command</span><span class="p">[</span><span class="mi">6</span><span class="p">:]</span>  <span class="c1"># Extract the message to be printed</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&#39; from the Server.&quot;</span>
+    <span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;time?&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">get_current_time</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">command</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">):</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;area pi,(\d+(\.\d+)?)&#39;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="n">radius</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">calculate_circle_area</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">command</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;multi&#39;</span><span class="p">):</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;multi ([\d,]+)&#39;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="n">numbers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
+            <span class="k">return</span> <span class="n">calculate_multiplication</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;ip?&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">get_ip_address</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">command</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;smax&#39;</span><span class="p">):</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;smax ([\d,]+)&#39;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="n">numbers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
+            <span class="k">return</span> <span class="n">calculate_smax</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Invalid command. </span><span class="si">{</span><span class="n">store_failed_command</span><span class="p">(</span><span class="n">command</span><span class="p">)</span><span class="si">}</span><span class="s2"> is not recognized&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">calculate_smax</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="c1"># Logic to calculate smax</span>
+    <span class="n">max_product</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">),</span> <span class="n">numbers</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">max_product</span>
+
+
+<span class="k">class</span> <span class="nc">Server</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span>
+
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_socket</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_socket</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Server listening on </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">client_socket</span><span class="p">,</span> <span class="n">client_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_socket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Accepted connection from </span><span class="si">{</span><span class="n">client_address</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">client_address</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">client_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
+                <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_client</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">client_socket</span><span class="p">,))</span>
+            <span class="n">client_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">handle_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_socket</span><span class="p">):</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">client_socket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">handle_command</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">client_socket</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+
+        <span class="n">client_socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;localhost&#39;</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="mi">8000</span>
+
+    <span class="c1"># Start the server</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+    <span class="n">server_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">server</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+    <span class="n">server_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter a command: &quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">command</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;exit&#39;</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">handle_command</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+    <span class="c1"># Stop the server (optional)</span>
+    <span class="c1"># server.server_socket.close()</span>
+</pre></div>
+</div>
 <section id="id1">
 <h3>Usage<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <p>To start the server, run the script with the desired host and port:</p>
@@ -826,9 +954,9 @@ record<span class="o">(</span>ai,<span class="w"> </span><span class="s2">&quot;
 </li>
 </ol>
 </section>
-<section id="ioc-qt-based-scripting-c">
-<h3>IOC Qt-Based Scripting (C++)<a class="headerlink" href="#ioc-qt-based-scripting-c" title="Permalink to this heading"></a></h3>
 </section>
+<section id="ioc-qt-based-scripting-c">
+<h2>IOC Qt-Based Scripting (C++)<a class="headerlink" href="#ioc-qt-based-scripting-c" title="Permalink to this heading"></a></h2>
 </section>
 <section id="epics-ioc-creation-and-running-siemens-plc">
 <h2>EPICS IOC Creation and Running (SIEMENS PLC)<a class="headerlink" href="#epics-ioc-creation-and-running-siemens-plc" title="Permalink to this heading"></a></h2>

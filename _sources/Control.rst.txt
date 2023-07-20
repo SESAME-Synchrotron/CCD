@@ -39,7 +39,7 @@ EPICS is an *open-sourced* project assembeled by multiple collaborators in the a
 
 
 Packages that required for EPICS installation 
-......................
+.............................................
 
 
 - **gcc**: GCC stands for GNU Compiler Collection. It is a collection of programming language compilers and tools, primarily used for compiling and linking C, C++, and Fortran programs. GCC supports multiple platforms and is widely used in the development of software applications.
@@ -131,6 +131,7 @@ which where you can store your environment variables.
 Then to check if the installation is successful, run the following command:
 
 .. code-block:: bash 
+
     # Then add the following lines to the file
     caget -h
     # Then you should see the following output
@@ -416,7 +417,7 @@ Arguments
    Both arguments should be integers.
 
 Functionality
-............
+.............
 
 1. Process Variable Manipulation:
 
@@ -461,127 +462,127 @@ Python Server script for handling commands with epics PVs
 This script implements a server that handles commands received from clients over a TCP/IP connection.
 
 .. code-block:: python
-  import socket
-  import subprocess
-  import threading
-  import re
-  from functools import reduce
 
-  #wrie  a function that stores faild command in a file
-  def store_failed_command(command):
-      # Logic to store failed command
-      with open('failed_command.txt', 'a') as file:
-          file.write(command + '\n')
-          
-  def get_current_time():
-      # Logic to get current time
-      current_time = subprocess.check_output('date', shell=True).decode().strip()
-      format_time = re.search(r'(\d{2}:\d{2}:\d{2})', current_time)
-      return format_time.group(1)
+    import socket
+    import subprocess
+    import threading
+    import re
+    from functools import reduce
 
-  def calculate_circle_area(radius):
-      # Logic to calculate circle area
-      area = 3.14159 * radius * radius
-      return area
+    #wrie  a function that stores faild command in a file
+    def store_failed_command(command):
+        # Logic to store failed command
+        with open('failed_command.txt', 'a') as file:
+            file.write(command + '\n')
+            
+    def get_current_time():
+        # Logic to get current time
+        current_time = subprocess.check_output('date', shell=True).decode().strip()
+        format_time = re.search(r'(\d{2}:\d{2}:\d{2})', current_time)
+        return format_time.group(1)
 
-
-  def calculate_multiplication(numbers):
-      # Logic to calculate multiplication
-      result = reduce(lambda x, y: x * y, numbers)
-      return result
+    def calculate_circle_area(radius):
+        # Logic to calculate circle area
+        area = 3.14159 * radius * radius
+        return area
 
 
-  def get_ip_address():
-      # Logic to get IP address
-      hostname = socket.gethostname()
-      ip_address = socket.gethostbyname(hostname)
-      return ip_address
+    def calculate_multiplication(numbers):
+        # Logic to calculate multiplication
+        result = reduce(lambda x, y: x * y, numbers)
+        return result
 
 
-  def handle_command(command):
-      if command.startswith('print '):
-          message = command[6:]  # Extract the message to be printed
-          print(message)
-          return f"'{message}' from the Server."
-      elif command == 'time?':
-          return get_current_time()
-      elif command.startswith('area'):
-          match = re.search(r'area pi,(\d+(\.\d+)?)', command)
-          if match:
-              radius = float(match.group(1))
-              return calculate_circle_area(radius)
-      elif command.startswith('multi'):
-          match = re.search(r'multi ([\d,]+)', command)
-          if match:
-              numbers = list(map(int, match.group(1).split(',')))
-              return calculate_multiplication(numbers)
-      elif command == 'ip?':
-          return get_ip_address()
-      elif command.startswith('smax'):
-          match = re.search(r'smax ([\d,]+)', command)
-          if match:
-              numbers = list(map(int, match.group(1).split(',')))
-              return calculate_smax(numbers)
-
-      return f"Invalid command. {store_failed_command(command)} is not recognized"
+    def get_ip_address():
+        # Logic to get IP address
+        hostname = socket.gethostname()
+        ip_address = socket.gethostbyname(hostname)
+        return ip_address
 
 
-  def calculate_smax(numbers):
-      # Logic to calculate smax
-      max_product = reduce(lambda x, y: max(x, x * y), numbers)
-      return max_product
+    def handle_command(command):
+        if command.startswith('print '):
+            message = command[6:]  # Extract the message to be printed
+            print(message)
+            return f"'{message}' from the Server."
+        elif command == 'time?':
+            return get_current_time()
+        elif command.startswith('area'):
+            match = re.search(r'area pi,(\d+(\.\d+)?)', command)
+            if match:
+                radius = float(match.group(1))
+                return calculate_circle_area(radius)
+        elif command.startswith('multi'):
+            match = re.search(r'multi ([\d,]+)', command)
+            if match:
+                numbers = list(map(int, match.group(1).split(',')))
+                return calculate_multiplication(numbers)
+        elif command == 'ip?':
+            return get_ip_address()
+        elif command.startswith('smax'):
+            match = re.search(r'smax ([\d,]+)', command)
+            if match:
+                numbers = list(map(int, match.group(1).split(',')))
+                return calculate_smax(numbers)
+
+        return f"Invalid command. {store_failed_command(command)} is not recognized"
 
 
-  class Server:
-      def __init__(self, host, port):
-          self.host = host
-          self.port = port
-
-      def start(self):
-          self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-          self.server_socket.bind((self.host, self.port))
-          self.server_socket.listen(1)
-          print(f"Server listening on {self.host}:{self.port}")
-
-          while True:
-              client_socket, client_address = self.server_socket.accept()
-              print(
-                  f"Accepted connection from {client_address[0]}:{client_address[1]}")
-              client_thread = threading.Thread(
-                  target=self.handle_client, args=(client_socket,))
-              client_thread.start()
-
-      def handle_client(self, client_socket):
-          while True:
-              data = client_socket.recv(1024).decode().strip()
-              if not data:
-                  break
-              response = handle_command(data)
-              client_socket.sendall(str(response).encode())
-
-          client_socket.close()
+    def calculate_smax(numbers):
+        # Logic to calculate smax
+        max_product = reduce(lambda x, y: max(x, x * y), numbers)
+        return max_product
 
 
-  if __name__ == '__main__':
-      host = 'localhost'
-      port = 8000
+    class Server:
+        def __init__(self, host, port):
+            self.host = host
+            self.port = port
 
-      # Start the server
-      server = Server(host, port)
-      server_thread = threading.Thread(target=server.start)
-      server_thread.start()
+        def start(self):
+            self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.server_socket.bind((self.host, self.port))
+            self.server_socket.listen(1)
+            print(f"Server listening on {self.host}:{self.port}")
 
-      while True:
-          command = input("Enter a command: ")
-          if command.lower() == 'exit':
-              break
+            while True:
+                client_socket, client_address = self.server_socket.accept()
+                print(
+                    f"Accepted connection from {client_address[0]}:{client_address[1]}")
+                client_thread = threading.Thread(
+                    target=self.handle_client, args=(client_socket,))
+                client_thread.start()
 
-          response = handle_command(command)
-          print(response)
+        def handle_client(self, client_socket):
+            while True:
+                data = client_socket.recv(1024).decode().strip()
+                if not data:
+                    break
+                response = handle_command(data)
+                client_socket.sendall(str(response).encode())
 
-      # Stop the server (optional)
-      # server.server_socket.close()
+            client_socket.close()
 
+
+    if __name__ == '__main__':
+        host = 'localhost'
+        port = 8000
+
+        # Start the server
+        server = Server(host, port)
+        server_thread = threading.Thread(target=server.start)
+        server_thread.start()
+
+        while True:
+            command = input("Enter a command: ")
+            if command.lower() == 'exit':
+                break
+
+            response = handle_command(command)
+            print(response)
+
+        # Stop the server (optional)
+        # server.server_socket.close()
 
 Usage
 .....
@@ -651,7 +652,7 @@ Function: store_failed_command
 This function stores a failed command in the file ``failed_command.txt``.
 
 Function: get_current_time
-.........................
+...........................
 
 This function retrieves the current time.
 
@@ -908,7 +909,7 @@ The following changes were made to the makefile:
 
 
 IOC Qt-Based Scripting (C++)
-............................
+-----------------------------
 
 EPICS IOC Creation and Running (SIEMENS PLC)
 --------------------------------------------
