@@ -155,25 +155,30 @@ EPICS IOC Creation
         # To create a new IOC
         mkdir testIOC
         cd testIOC
-        makeBaseApp.pl -t -i ioc iocName
-        cd configure
-        vim RELEASE
-        # make sure everything is correct in the file
-        cd
-        cd testIOC
-        cd testApp
-        cd db
-        vim test.db
-
+        makeBaseApp.pl -t ioc iocName
+        makeBaseApp.pl -i ioc iocName
+        vim configure/RELEASE
+        # Make sure EPICS base path and support modules are written in the right form
+        vim testIOC/testApp/Db/test.db
+        # Go to the Makefile in the Db directory
+        # Make sure that the area where there is "xxx.db" is filled in with the name of the db file you have created previously. "test.db" in this case.
 Add the following lines to the test.db file
 
 .. include:: recored.txt
 
 .. code-block:: bash
 
+    # Now to Build the IOC do the following
     cd
     cd testIOC
-    vim Makefile
+    make
+    make install
+    # After it has been built, to check whether if the build was successful, go to testIOC/db/test.db (this is an uneditable file, if it has the same content as the one you have created in the testApp/Db then the build was successful)
+
+    # Finally to activate the IOC, run the following command, (pay attention to switch the names of this IOC to the specific one you have created)
+    ./bin/linux-x86_64/iocName iocBoot/iocName/st.cmd
+
+
 
 
 
