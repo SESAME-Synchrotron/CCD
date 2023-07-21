@@ -164,7 +164,7 @@ EPICS IOC Creation
         # Make sure that the area where there is "xxx.db" is filled in with the name of the db file you have created previously. "test.db" in this case.
 Add the following lines to the test.db file
 
-.. include:: Text-material/Recored.txt
+.. include:: Text-material/recored.txt
 
 .. code-block:: bash
 
