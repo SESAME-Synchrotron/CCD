@@ -244,21 +244,25 @@ No<span class="w"> </span>pv<span class="w"> </span>name<span class="w"> </span>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># To create a new IOC</span>
 mkdir<span class="w"> </span>testIOC
 <span class="nb">cd</span><span class="w"> </span>testIOC
-makeBaseApp.pl<span class="w"> </span>-t<span class="w"> </span>-i<span class="w"> </span>ioc<span class="w"> </span>iocName
-<span class="nb">cd</span><span class="w"> </span>configure
-vim<span class="w"> </span>RELEASE
-<span class="c1"># make sure everything is correct in the file</span>
-<span class="nb">cd</span>
-<span class="nb">cd</span><span class="w"> </span>testIOC
-<span class="nb">cd</span><span class="w"> </span>testApp
-<span class="nb">cd</span><span class="w"> </span>db
-vim<span class="w"> </span>test.db
+makeBaseApp.pl<span class="w"> </span>-t<span class="w"> </span>ioc<span class="w"> </span>iocName
+makeBaseApp.pl<span class="w"> </span>-i<span class="w"> </span>ioc<span class="w"> </span>iocName
+vim<span class="w"> </span>configure/RELEASE
+<span class="c1"># Make sure EPICS base path and support modules are written in the right form</span>
+vim<span class="w"> </span>testIOC/testApp/Db/test.db
+<span class="c1"># Go to the Makefile in the Db directory</span>
+<span class="c1"># Make sure that the area where there is &quot;xxx.db&quot; is filled in with the name of the db file you have created previously. &quot;test.db&quot; in this case.</span>
 </pre></div>
 </div>
 <p>Add the following lines to the test.db file</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now to Build the IOC do the following</span>
+<span class="nb">cd</span>
 <span class="nb">cd</span><span class="w"> </span>testIOC
-vim<span class="w"> </span>Makefile
+make
+make<span class="w"> </span>install
+<span class="c1"># After it has been built, to check whether if the build was successful, go to testIOC/db/test.db (this is an uneditable file, if it has the same content as the one you have created in the testApp/Db then the build was successful)</span>
+
+<span class="c1"># Finally to activate the IOC, run the following command, (pay attention to switch the names of this IOC to the specific one you have created)</span>
+./bin/linux-x86_64/iocName<span class="w"> </span>iocBoot/iocName/st.cmd
 </pre></div>
 </div>
 <p>Only the following lines should be in the Makefile file.</p>
