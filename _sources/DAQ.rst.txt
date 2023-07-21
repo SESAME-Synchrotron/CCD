@@ -58,7 +58,6 @@ For example, in order to home all of the motors using the higher limit, navigate
 
 .. code-block:: bash
     python3.9 test.py home test.json all hi
-
 Where ``test.py`` is the Python script file name and ``test.json`` is the JSON file name.
 
 Detector
