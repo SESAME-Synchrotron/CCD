@@ -914,7 +914,7 @@ The following changes were made to the makefile:
 
 
 
-IOC Qt-Based Scripting (C++)
+IOC Qt-Based Scripting 
 -----------------------------
 
 EPICS IOC Creation and Running (SIEMENS PLC)
