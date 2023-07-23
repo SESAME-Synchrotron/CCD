@@ -463,6 +463,85 @@ This will write the base and altitude values to the corresponding PVs, calculate
    :width: 400
    :align: center
 
+
+
+EPICS-Qt Installation and Configuration
+---------------------------------------
+This documentation provides step-by-step instructions to install and configure EPICS-Qt, a framework that integrates Experimental Physics and Industrial Control System (EPICS) with Qt, allowing the development of user interfaces for EPICS-based control systems.
+
+1. Installing Qt Creator using DNF
+...................................
+To install Qt Creator from the repository using DNF (Dandified Yum), follow these steps:
+
+1. Open a terminal.
+
+2. Execute the following command to install Qt Creator and related packages:
+
+   .. code-block:: bash
+
+      $ dnf install qt5*
+
+2. Building EPICS-Qt from Source
+................................
+To build EPICS-Qt from the source, you will need the `epics-qt-source.tar.gz` archive. Follow these steps to build EPICS-Qt:
+
+1. Extract the `epics-qt-source.tar.gz` archive to a desired location on your system.
+
+2. Open a terminal and navigate to the extracted `epics-qt-source` directory.
+
+3. Execute the following commands to build and install EPICS-Qt:
+
+   .. code-block:: bash
+
+      $ make
+      $ make install
+
+   The EPICS-Qt libraries and components will be built and installed on your system.
+
+
+3. Configuring Environment Variables
+....................................
+
+
+To configure the necessary environment variables for EPICS-Qt, add the following lines to your `.bashrc` file. Ensure you replace `<<<<EPICS_BASE_LOCATION>>>>` with the actual path to your EPICS base installation and verify the specific versions installed on your system:
+
+.. code-block:: bash
+
+   export EPICS_BASE=/path/to/your/epics/base
+   export EPICS_HOST_ARCH=linux-x86_64
+   export QWT_ROOT=/usr/local/qwt-6.1.3
+   export QWT_INCLUDE_PATH=${QWT_ROOT}/include
+   export QE_TARGET_DIR=/usr/local/epics-qt
+   export PATH=${EPICS_BASE}/bin/${EPICS_HOST_ARCH}:${QE_TARGET_DIR}/bin/${EPICS_HOST_ARCH}:/usr/lib64/qt5/bin:${PATH}
+   export LD_LIBRARY_PATH=${EPICS_BASE}/lib/${EPICS_HOST_ARCH}:/usr/local/qwt-6.1.3/lib:${QE_TARGET_DIR}/lib/${EPICS_HOST_ARCH}:${QE_TARGET_DIR}/lib/${EPICS_HOST_ARCH}/designer
+   export QT_PLUGIN_PATH=${QT_PLUGIN_PATH}:${QWT_ROOT}/plugins:$QE_TARGET_DIR/lib/${EPICS_HOST_ARCH}
+
+4. Conclusion
+.............
+
+You have successfully installed and configured EPICS-Qt on your system. With this setup, you can now develop user interfaces for EPICS-based control systems using Qt Creator and the EPICS-Qt framework.
+
+Add this to the .pro file
+
+.. code-block:: bash
+
+  unix:!macx: LIBS += -L$$(QE_TARGET_DIR)/lib/linux-x86_64/ -lQEFramework
+  unix:!macx: LIBS += -L$$(QE_TARGET_DIR)/lib/linux-x86_64/designer -lQEPlugin
+  INCLUDEPATH += $$(QE_TARGET_DIR)/include
+  DEPENDPATH  += $$(QE_TARGET_DIR)/include
+  unix:!macx: LIBS += -L$$(QWT_ROOT)/lib/ -lqwt
+  INCLUDEPATH += $$(QWT_ROOT)/include
+  DEPENDPATH  += $$(QWT_ROOT)/include
+  unix:!macx: LIBS += -L$$(EPICS_BASE)/lib/linux-x86_64/ -lca
+  unix:!macx: LIBS += -L$$(EPICS_BASE)/lib/linux-x86_64/ -lCom
+  INCLUDEPATH += $$(EPICS_BASE)/include
+  DEPENDPATH += $$(EPICS_BASE)/include
+  INCLUDEPATH += $$(EPICS_BASE)/include/os/Linux
+  DEPENDPATH += $$(EPICS_BASE)/include/os/Linux
+  INCLUDEPATH += $$(EPICS_BASE)/include/compiler/gcc/
+
+
+
 Python Server script for handling commands with epics PVs
 ---------------------------------------------------------
 This script implements a server that handles commands received from clients over a TCP/IP connection.
