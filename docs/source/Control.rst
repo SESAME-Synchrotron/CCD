@@ -1106,5 +1106,3 @@ Programmable Logic Controllers (PLCs) EPICS Interface
 
 EPICS-Qt (GUI design and Implementation)
 ----------------------------------------
-
-m
