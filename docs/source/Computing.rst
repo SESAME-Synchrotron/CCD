@@ -1,6 +1,7 @@
 Scientific Computing
 ====================
-
+.. contents:: Table of Contents
+   :depth: 2
 Operating Systems, Networking and Virtualization
 ------------------------------------------------
 

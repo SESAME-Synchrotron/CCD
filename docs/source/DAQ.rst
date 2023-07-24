@@ -1,6 +1,7 @@
 Data Collection and Analysis
 ============================
-
+.. contents:: Table of Contents
+   :depth: 2
 Data Collection at SESAME
 -------------------------
 

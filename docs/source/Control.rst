@@ -1,6 +1,10 @@
 Control Engineering
 ===================
 
+.. contents:: Table of Contents
+   :depth: 2
+
+
 Control Systems and Introduction to the EPICS Toolkit
 -----------------------------------------------------
 **Accelerator Control System:** connects the Operator in the control room with the accelerator hardware. The control room might not be near the accelerator.
@@ -261,6 +265,86 @@ Some of the most used CA clients are the following:
     
   .. image:: images/EPICS_slide41.png
   
+Small Exercise for bash scripting
+---------------------------------
+
+
+Introduction
+............
+
+This script is a Bash script that interacts with EPICS (Experimental Physics and Industrial Control System) and logs the output to a file. The script contains functions to retrieve and set values for EPICS records and logs the operations to the "output.log" file.
+
+Functions
+.........
+
+1. ``log()``
+~~~~~~~~~~~~~~
+   The ``log()`` function appends a log message with the current date and time to the "output.log" file.
+
+   Parameters:
+   - ``$1``: The message to be logged.
+
+   Usage:
+   .. code-block:: bash
+
+      log "Message to be logged"
+
+2. ``get_record_value()``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+   The ``get_record_value()`` function retrieves the value of a specified EPICS record and logs it using the ``log()`` function.
+
+   Parameters:
+   - ``$1``: The name of the EPICS record to retrieve the value for.
+
+   Usage:
+   .. code-block:: bash
+
+      get_record_value "record_name"
+
+3. ``set_record_value()``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+   The ``set_record_value()`` function sets a specified value for a given EPICS record and logs the operation using the ``log()`` function.
+
+   Parameters:
+   - ``$1``: The name of the EPICS record to set the value for.
+   - ``$2``: The value to be set for the EPICS record.
+
+   Usage:
+   .. code-block:: bash
+
+      set_record_value "record_name" "value"
+
+Usage Example
+.............
+
+Below is an example of how to use this script:
+
+.. code-block:: bash
+
+   # Setting the value of test:AO1 record to 50
+   set_record_value "test:AO1" "50"
+
+   # Setting the value of test:SI1 record to "Hello, EPICS!"
+   set_record_value "test:SI1" "Hello, EPICS!"
+
+   # Setting the value of test:Base_PV record to 3
+   set_record_value "test:Base_PV" "3"
+
+   # Setting the value of test:Altitude_PV record to 4
+   set_record_value "test:Altitude_PV" "4"
+
+   # Retrieving and logging the value of test:Calc_PV record
+   get_record_value "test:Calc_PV"
+
+Conclusion
+..........
+
+This script provides a simple way to interact with EPICS records and log the operations to a file. Please make sure you have the necessary EPICS tools installed and configured before running the script.
+
+Note: Replace "record_name" and "value" in the usage examples with the appropriate EPICS record name and value you want to use in your application.
+
+
+
 
 IOC Hypotenuse Project Exercise
 ...............................
@@ -989,6 +1073,23 @@ The following changes were made to the makefile:
      - asyn
      - stream
      - calc
+EPICS GUI with Qt for the Python Server
+---------------------------------------
+
+.. image:: images/EPICS_Python_GUI.png
+
+As yo can see the GUI is composed of 6 things
+
+1. A box to get the current time
+2. A box to get the IP address
+3. A box to calculate the area of a circle
+4. A box to calculate the smax of three numbers
+5. A box to calculate the multiplication of three numbers
+6. A box to calculate right triangle hypotenuse
+
+
+
+
 
 
 PLC and Siemens PLC 
