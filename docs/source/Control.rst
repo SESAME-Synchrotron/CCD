@@ -1196,8 +1196,6 @@ In the above configuration, we define several EPICS records for different data t
 By configuring these EPICS records with the appropriate memory addresses and data types, the PLC can be efficiently interfaced and controlled within the EPICS control system.
 
 
-IOC Qt-Based Scripting 
------------------------------
 
 EPICS IOC Creation and Running (SIEMENS PLC)
 --------------------------------------------

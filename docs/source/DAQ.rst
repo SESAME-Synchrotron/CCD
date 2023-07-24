@@ -5,6 +5,76 @@ Data Collection and Analysis
 Data Collection at SESAME
 -------------------------
 
+Data Collection and Analysis at SESAME is was activate begging of 2021 
+
+
+There tasks 
+
+- smooth and reliable data collection
+
+- data analysis
+
+- data storage
+
+- provding essential pre and post processing tools
+
+Experimental Data Management Policy of SESAME
+---------------------------------------------
+
+Policy Statement
+................
+
+
+The purpose of this Policy is to provide information and guidance to users conducting peer-reviewed and Director Discretionary time research on experimental data ownership, storage, access, and management. 
+
+Coverage
+.........
+
+- This policy applies to raw data and metadata generated from peer-reviewed and Director Discretionary time research proposals and in-house experiments.
+- It does not cover proprietary and industrial research conducted by Participatory Research Teams
+
+General Principles
+..................
+
+- Acceptance of this Policy is a precondition for obtaining beam time for peer-reviewed and Director Discretionary time research proposals and in-house experiments.
+- SESAME will strive to maximize long-term curation of data for a minimum of 5 years, with a target of 10 years.
+
+Definitions
+...........
+
+- Experimental Data: Umbrella term for raw data and all associated metadata.
+- Metadata: Information related to the experiment and experimental conditions.
+
+Data Ownership and Access
+..........................
+
+- Raw data and associated metadata will become open access after a 3-year embargo period,
+- Data and metadata will be curated in well-defined formats for long-term access.
+
+Results
+.......
+
+- Ownership of results derived from data analysis will be determined by contractual obligations of individuals performing the analysis.
+- SESAME will provide best effort curation of results and act as the long-term custodian.
+
+Publication
+...........
+
+- Publications related to SESAME experiments must cite the persistent identifier of the experiment and data.
+- References of related publications must be deposited in a publications database within 3 months of the publication date or during new beam time applications.
+
+Compliance
+...........
+- Acceptance of the Experimental Data Management Policy is a precondition for obtaining beam time.
+- Deliberate infringement may result in denial of data access and rejection of future beam time applications.
+
+Tomoscan 
+---------
+
+it is a python based software for tomography data collection and analysis. 
+which is used to collect data from SESAME tomography beamline.
+
+
 Data Acquisition Testing Bench
 ------------------------------
 The testing bench consists of five motors, from A to E, that can be controlled using EPICS. These motors are used to test various control programs that are to be used at SESAME beamlines.
