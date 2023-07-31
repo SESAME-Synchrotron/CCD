@@ -5,41 +5,41 @@ Control Engineering
    :depth: 2
 
 
-Control Systems and Introduction to the EPICS Toolkit
------------------------------------------------------
-**Accelerator Control System:** connects the Operator in the control room with the accelerator hardware. The control room might not be near the accelerator.
+.. Control Systems and Introduction to the EPICS Toolkit
+.. -----------------------------------------------------
+.. **Accelerator Control System:** connects the Operator in the control room with the accelerator hardware. The control room might not be near the accelerator.
 
-*For example:* SESAME has N Computers, N magnets, N vacuum pumps, 5 beamlines, a cooling system, RF system, power supply system, ... etc. which all need to be closely and heavily controlled.
+.. *For example:* SESAME has N Computers, N magnets, N vacuum pumps, 5 beamlines, a cooling system, RF system, power supply system, ... etc. which all need to be closely and heavily controlled.
 
-.. image:: images/EPICS_slide4.png
+.. .. image:: images/EPICS_slide4.png
 
-**Experimental Physics and Industrial Control System (EPICS)**: is a collaboration software tool kit, that provides a control system architecture suitable for research and industrial facilities such as accelerators. EPICS uses a Client/Server and Publish/Subscribe methods and a Channel Access network protocol (3-tier architecture or 3 layer model). 
+.. **Experimental Physics and Industrial Control System (EPICS)**: is a collaboration software tool kit, that provides a control system architecture suitable for research and industrial facilities such as accelerators. EPICS uses a Client/Server and Publish/Subscribe methods and a Channel Access network protocol (3-tier architecture or 3 layer model). 
 
-.. image:: images/EPICS_slide10.png
+.. .. image:: images/EPICS_slide10.png
 
-EPICS is an *open-sourced* project assembeled by multiple collaborators in the accelerator industry, 12+ accelerators around the world have provided assistance in its development and still use it to this day. 
+.. EPICS is an *open-sourced* project assembeled by multiple collaborators in the accelerator industry, 12+ accelerators around the world have provided assistance in its development and still use it to this day. 
 
 
-**Channel Access:** A protocol to transfer data over network, a single data unit is called a **Process Variable**. The entire set of Process Variables establish a Distributed Real-time Database of machine statis, information and control parameters.
+.. **Channel Access:** A protocol to transfer data over network, a single data unit is called a **Process Variable**. The entire set of Process Variables establish a Distributed Real-time Database of machine statis, information and control parameters.
 
-.. image:: images/EPICS_slide11.png
+.. .. image:: images/EPICS_slide11.png
 
-**Channel Access Network Flow:**
+.. **Channel Access Network Flow:**
 
-1) Query: broadcast and connection request.
-2) Answer: direct connection
-3) All further queries and answers work directly (Point-To-Point)
+.. 1) Query: broadcast and connection request.
+.. 2) Answer: direct connection
+.. 3) All further queries and answers work directly (Point-To-Point)
 
-.. image:: images/EPICS_slide12.png
+.. .. image:: images/EPICS_slide12.png
 
-**Main Access Commands in EPICS:**
+.. **Main Access Commands in EPICS:**
 
-- ``caget``: returns the value of the PV or any sub-fields in the PV. 
-- ``caput``: sets a value of a PV or a sub-field in a PV to a desired value and displays the old and newly assigned values.
-- ``camonitor``: sets up a monitor and continuously prints incoming changing values for PVs.
-- ``cainfo``: Prints all available channel status and information for a PV.
+.. - ``caget``: returns the value of the PV or any sub-fields in the PV. 
+.. - ``caput``: sets a value of a PV or a sub-field in a PV to a desired value and displays the old and newly assigned values.
+.. - ``camonitor``: sets up a monitor and continuously prints incoming changing values for PVs.
+.. - ``cainfo``: Prints all available channel status and information for a PV.
 
-.. image:: images/EPICS_slide14.png
+.. .. image:: images/EPICS_slide14.png
 
 
 Packages that required for EPICS installation 
