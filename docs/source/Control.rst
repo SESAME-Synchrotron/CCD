@@ -5,50 +5,50 @@ Control Engineering
    :depth: 2
 
 
-.. Control Systems and Introduction to the EPICS Toolkit
-.. -----------------------------------------------------
-.. **Accelerator Control System:** connects the Operator in the control room with the accelerator hardware. The control room might not be near the accelerator.
+Control Systems and Introduction to the EPICS Toolkit
+-----------------------------------------------------
+**Accelerator Control System:** connects the Operator in the control room with the accelerator hardware. The control room might not be near the accelerator.
 
-.. *For example:* SESAME has N Computers, N magnets, N vacuum pumps, 5 beamlines, a cooling system, RF system, power supply system, ... etc. which all need to be closely and heavily controlled.
+*For example:* SESAME has N Computers, N magnets, N vacuum pumps, 5 beamlines, a cooling system, RF system, power supply system, ... etc. which all need to be closely and heavily controlled.
 
-.. .. image:: images/EPICS_slide4.png
+.. image:: images/EPICS_slide4.png
 
-.. **Experimental Physics and Industrial Control System (EPICS)**: is a collaboration software tool kit, that provides a control system architecture suitable for research and industrial facilities such as accelerators. EPICS uses a Client/Server and Publish/Subscribe methods and a Channel Access network protocol (3-tier architecture or 3 layer model). 
+**Experimental Physics and Industrial Control System (EPICS)**: is a collaboration software tool kit, that provides a control system architecture suitable for research and industrial facilities such as accelerators. EPICS uses a Client/Server and Publish/Subscribe methods and a Channel Access network protocol (3-tier architecture or 3 layer model). 
 
-.. .. image:: images/EPICS_slide10.png
+.. image:: images/EPICS_slide10.png
 
-.. EPICS is an *open-sourced* project assembeled by multiple collaborators in the accelerator industry, 12+ accelerators around the world have provided assistance in its development and still use it to this day. 
+EPICS is an *open-sourced* project assembeled by multiple collaborators in the accelerator industry, 12+ accelerators around the world have provided assistance in its development and still use it to this day. 
 
 
-.. **Channel Access:** A protocol to transfer data over network, a single data unit is called a **Process Variable**. The entire set of Process Variables establish a Distributed Real-time Database of machine statis, information and control parameters.
+**Channel Access:** A protocol to transfer data over network, a single data unit is called a **Process Variable**. The entire set of Process Variables establish a Distributed Real-time Database of machine statis, information and control parameters.
 
-.. .. image:: images/EPICS_slide11.png
+.. image:: images/EPICS_slide11.png
 
-.. **Channel Access Network Flow:**
+**Channel Access Network Flow:**
 
-.. 1) Query: broadcast and connection request.
-.. 2) Answer: direct connection
-.. 3) All further queries and answers work directly (Point-To-Point)
+1) Query: broadcast and connection request.
+2) Answer: direct connection
+3) All further queries and answers work directly (Point-To-Point)
 
-.. .. image:: images/EPICS_slide12.png
+.. image:: images/EPICS_slide12.png
 
-.. **Main Access Commands in EPICS:**
+**Main Access Commands in EPICS:**
 
-.. - ``caget``: returns the value of the PV or any sub-fields in the PV. 
-.. - ``caput``: sets a value of a PV or a sub-field in a PV to a desired value and displays the old and newly assigned values.
-.. - ``camonitor``: sets up a monitor and continuously prints incoming changing values for PVs.
-.. - ``cainfo``: Prints all available channel status and information for a PV.
+- ``caget``: returns the value of the PV or any sub-fields in the PV. 
+- ``caput``: sets a value of a PV or a sub-field in a PV to a desired value and displays the old and newly assigned values.
+- ``camonitor``: sets up a monitor and continuously prints incoming changing values for PVs.
+- ``cainfo``: Prints all available channel status and information for a PV.
 
-.. .. image:: images/EPICS_slide14.png
+.. image:: images/EPICS_slide14.png
 
 
 Packages that required for EPICS installation 
 .............................................
 
 
-- **gcc**: GCC stands for GNU Compiler Collection. It is a collection of programming language compilers and tools, primarily used for compiling and linking C, C++, and Fortran programs. GCC supports multiple platforms and is widely used in the development of software applications.
+- **GCC** (GNU Compiler Collection): It is a collection of programming language compilers and tools, primarily used for compiling and linking C, C++, and Fortran programs.
 
-- **gcc-C++**:This package is an extension of GCC and specifically includes the C++ compiler. It is required if you want to compile and build C++ programs using GCC. The package provides the necessary libraries and headers for C++ development.
+- **GCC-C++**:This package is an extension of GCC and specifically includes the C++ compiler. It is required if you want to compile and build C++ programs using GCC. The package provides the necessary libraries and headers for C++ development.
 
 .. code-block:: bash
 
@@ -60,14 +60,14 @@ Packages that required for EPICS installation
 
 
 
-- **make** : Make is a utility used for building and managing software projects. It is used to automate the process of building executable programs and libraries from source code. The "make" utility uses a "Makefile" to define the build process. It is a text file that contains instructions for the "make" utility to execute. The "make" utility is often used in conjunction with the GCC compiler to build software projects. The "make" utility is included in the "Development Tools" package group. If you have already installed the "Development Tools" package group, you do not need to install the "make" utility separately.
+- **make** : Make is a utility used for building and managing software projects. It is used to automate the process of building executable programs and libraries from source code. The "make" utility uses a "Makefile" to define the build process. It is a text file that contains instructions for the "make" utility to execute. 
 
 .. code-block:: bash
 
         # To install the make the following command:
         sudo yum install make
 
-- **gcc-toolset-9-make**: This package is a part of the GCC Toolset, which is a collection of development tools and libraries. It includes the "make" utility, which is used to manage and build software projects. The version number "9" in the package name refers to the specific version of the GCC Toolset. It is likely that this package includes GCC version 9 and the associated "make" utility.
+- **gcc-toolset-9-make**: This package is a part of the GCC Toolset, which is a collection of development tools and libraries. It includes the "make" utility, which is used to manage and build software projects.
 
 
 .. code-block:: bash
@@ -81,7 +81,7 @@ Packages that required for EPICS installation
 
 
 
-- **readline-devel**: The readline library is used for line editing during command-line input. It provides features like command history, editing capabilities, and tab completion. The "readline-devel" package contains the development files and headers needed to compile programs that use the readline library. If you are building a program that requires readline functionality, you would need this package.
+- **readline-devel**: The readline library is used for line editing during command-line input. It provides features like command history, editing capabilities, and tab completion. The “readline-devel” package contains the development files and headers needed to compile programs that use the readline library.
 
 .. code-block:: bash
 
@@ -118,7 +118,7 @@ To install EPICS on Rocky Linux, follow these steps:
     make install
 
 
-Then you have to add the following to the .bashrc file 
+You have to add the following to the .bashrc file 
 which where you can store your environment variables.
 
 .. code-block:: bash
@@ -206,13 +206,13 @@ In the IOC database, there are units of PV's called **Records**. Each of these r
 
 **Record:** an object with a unique name, properties (**fields**) and contains information (data) where different data types can appear in different fields. A record also has the ability to perform actions on data.
 
-**Naming a PV:** a PV is comprised of two parts
+**Naming a PV:** a PV is comprised of two parts:
 - The record name
 - The name of a field belonging to that record
 
 For example: ``ARIDI-PCT:CURRENT.`` in this case most record fields can be accessed individually.
 
-Note: if no field name is given, Channel Access will default to using the .VAL field. 
+Note: if no field name is given, Channel Access will by default use the .VAL field. 
 
 A general structure of what you might see in an IOC in terms of records and fields is the following:
 
@@ -237,8 +237,6 @@ A general structure of what you might see in an IOC in terms of records and fiel
     field(INPB, "test:Base_PV CP")
   }
 
-As mentioned previously, altering these records could be done using the
-
 The documentation for the list of records on EPICS and their respective fields can be found on this page: https://epics.anl.gov/EpicsDocumentation/AppDevManuals/RecordRef/Recordref-3.html
 
 After curating your IOC database, in order to interact with it one would have to use a Channel Access (CA) Client. 
@@ -250,21 +248,12 @@ Some of the most used CA clients are the following:
   .. image:: images/EPICS_slide21.png
 
 - ALH: Alarm Handler
-  
-  .. image:: images/EPICS_slide25.png
-    
-  .. image:: images/EPICS_slide24.png
 
 - StripTool: Strip-chart Plotting Tool
-  
-  .. image:: images/EPICS_slide27.png
 
 - catQtDM: Display Manager
-  
-  .. image:: images/EPICS_slide29.png
-    
-  .. image:: images/EPICS_slide41.png
-  
+
+
 Small Exercise for bash scripting
 ---------------------------------
 
@@ -285,6 +274,8 @@ Functions
    - ``$1``: The message to be logged.
 
    Usage:
+
+
    .. code-block:: bash
 
       log "Message to be logged"
@@ -297,6 +288,7 @@ Functions
    - ``$1``: The name of the EPICS record to retrieve the value for.
 
    Usage:
+   
    .. code-block:: bash
 
       get_record_value "record_name"
@@ -310,6 +302,7 @@ Functions
    - ``$2``: The value to be set for the EPICS record.
 
    Usage:
+   
    .. code-block:: bash
 
       set_record_value "record_name" "value"
@@ -348,11 +341,12 @@ Note: Replace "record_name" and "value" in the usage examples with the appropria
 
 IOC Hypotenuse Project Exercise
 ...............................
-After knowing the Database section this is a small Exercise that would help you to put your knowledge into practice. 
+
+After getting more familiar with the Database section, this is a small exercise that would help put your knowledge into practice. 
 
 
 
-- Define a record that calculates the hypotenuse of a right triangle. The record should have two input fields, A and B, and one output field, VAL. The record should calculate the hypotenuse using the following formula:
+- Define a record that calculates the hypotenuse of a right triangle. The record should have two input fields, *A* and *B*, and one output field, *VAL*. The record should calculate the hypotenuse using the following formula:
 .. math::
     Hypo= \sqrt{A^2 + B^2}
 
@@ -1092,8 +1086,8 @@ As yo can see the GUI is composed of 6 things
 
 
 
-PLC and Siemens PLC 
-------------------------------
+EPICS IOC Creation and Running (SIEMENS PLC)
+--------------------------------------------
 
 
 1. PLC: What are they and why are they used?
@@ -1194,14 +1188,3 @@ In the above configuration, we define several EPICS records for different data t
 - ``ZNAM`` and ``ONAM``: Define the names for the zero (false) and one (true) states for binary records.
 
 By configuring these EPICS records with the appropriate memory addresses and data types, the PLC can be efficiently interfaced and controlled within the EPICS control system.
-
-
-
-EPICS IOC Creation and Running (SIEMENS PLC)
---------------------------------------------
-
-Programmable Logic Controllers (PLCs) EPICS Interface
------------------------------------------------------
-
-EPICS-Qt (GUI design and Implementation)
-----------------------------------------
