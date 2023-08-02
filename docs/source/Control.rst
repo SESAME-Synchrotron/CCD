@@ -11,18 +11,14 @@ Control Systems and Introduction to the EPICS Toolkit
 
 *For example:* SESAME has N Computers, N magnets, N vacuum pumps, 5 beamlines, a cooling system, RF system, power supply system, ... etc. which all need to be closely and heavily controlled.
 
-.. image:: images/EPICS_slide4.png
+.. image:: images/Operators.png
 
 **Experimental Physics and Industrial Control System (EPICS)**: is a collaboration software tool kit, that provides a control system architecture suitable for research and industrial facilities such as accelerators. EPICS uses a Client/Server and Publish/Subscribe methods and a Channel Access network protocol (3-tier architecture or 3 layer model). 
-
-.. image:: images/EPICS_slide10.png
 
 EPICS is an *open-sourced* project assembeled by multiple collaborators in the accelerator industry, 12+ accelerators around the world have provided assistance in its development and still use it to this day. 
 
 
 **Channel Access:** A protocol to transfer data over network, a single data unit is called a **Process Variable**. The entire set of Process Variables establish a Distributed Real-time Database of machine statis, information and control parameters.
-
-.. image:: images/EPICS_slide11.png
 
 **Channel Access Network Flow:**
 
@@ -30,7 +26,7 @@ EPICS is an *open-sourced* project assembeled by multiple collaborators in the a
 2) Answer: direct connection
 3) All further queries and answers work directly (Point-To-Point)
 
-.. image:: images/EPICS_slide12.png
+.. image:: images/ProcessVariable.png
 
 **Main Access Commands in EPICS:**
 
@@ -38,8 +34,6 @@ EPICS is an *open-sourced* project assembeled by multiple collaborators in the a
 - ``caput``: sets a value of a PV or a sub-field in a PV to a desired value and displays the old and newly assigned values.
 - ``camonitor``: sets up a monitor and continuously prints incoming changing values for PVs.
 - ``cainfo``: Prints all available channel status and information for a PV.
-
-.. image:: images/EPICS_slide14.png
 
 
 Packages that required for EPICS installation 
@@ -244,8 +238,6 @@ After curating your IOC database, in order to interact with it one would have to
 Some of the most used CA clients are the following: 
 
 - Command line tools(caget,caput,...)
-  
-  .. image:: images/EPICS_slide21.png
 
 - ALH: Alarm Handler
 
@@ -299,6 +291,7 @@ Functions
 
    Parameters:
    - ``$1``: The name of the EPICS record to set the value for.
+  
    - ``$2``: The value to be set for the EPICS record.
 
    Usage:
