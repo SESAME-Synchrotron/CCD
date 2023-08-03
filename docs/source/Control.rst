@@ -40,9 +40,9 @@ Packages that required for EPICS installation
 .............................................
 
 
-- **GCC** (GNU Compiler Collection): It is a collection of programming language compilers and tools, primarily used for compiling and linking C, C++, and Fortran programs.
+- **GCC** (GNU Compiler Collection): It is a set of tools and compilers for various programming languages that are mostly employed for linking and compiling C, C++, and Fortran programs.
 
-- **GCC-C++**:This package is an extension of GCC and specifically includes the C++ compiler. It is required if you want to compile and build C++ programs using GCC. The package provides the necessary libraries and headers for C++ development.
+- **GCC-C++**:The C++ compiler is included in this package, which is an addition to GCC. If you wish to use GCC to compile and create C++ programs, it is necessary. For C++ development, the package includes the necessary libraries and headers.
 
 .. code-block:: bash
 
@@ -612,26 +612,21 @@ This script implements a server that handles commands received from clients over
     import re
     from functools import reduce
 
-    #wrie  a function that stores faild command in a file
     def store_failed_command(command):
-        # Logic to store failed command
         with open('failed_command.txt', 'a') as file:
             file.write(command + '\n')
             
     def get_current_time():
-        # Logic to get current time
         current_time = subprocess.check_output('date', shell=True).decode().strip()
         format_time = re.search(r'(\d{2}:\d{2}:\d{2})', current_time)
         return format_time.group(1)
 
     def calculate_circle_area(radius):
-        # Logic to calculate circle area
         area = 3.14159 * radius * radius
         return area
 
 
     def calculate_multiplication(numbers):
-        # Logic to calculate multiplication
         result = reduce(lambda x, y: x * y, numbers)
         return result
 
@@ -672,7 +667,6 @@ This script implements a server that handles commands received from clients over
 
 
     def calculate_smax(numbers):
-        # Logic to calculate smax
         max_product = reduce(lambda x, y: max(x, x * y), numbers)
         return max_product
 
