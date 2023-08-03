@@ -1084,11 +1084,11 @@ By configuring these EPICS records with the appropriate memory addresses and dat
 EPICS GUI with Qt for the PLC
 -----------------------------
 
-.. image:: images/Qt_PLC.png
+.. image:: images/QT_PLC.png
 
 
-  As you can see the GUI is composed of
+As you can see the GUI is composed of
 
-  1. Buttons to  turn on/off the LED
-  2. Button to see the button pressed or not
-  3. The reading of different sensors  in the PLC
+1. Buttons to  turn on/off the LED
+2. Button to see the button pressed or not
+3. The reading of different sensors  in the PLC
