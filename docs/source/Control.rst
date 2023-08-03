@@ -75,14 +75,14 @@ Packages that required for EPICS installation
 
 
 
-- **readline-devel**: The readline library is used for line editing during command-line input. It provides features like command history, editing capabilities, and tab completion. The “readline-devel” package contains the development files and headers needed to compile programs that use the readline library.
+- **readline-devel**: The readline library is used for line editing during command-line input. It provides features like command history, editing capabilities, and tab completion.
 
 .. code-block:: bash
 
         # To install the GCC compiler, run the following command:
         sudo yum install readline-devel 
 
-- **perl-ExtUtils-Install**: Perl is a popular scripting language used for various purposes, including system administration and web development. The "perl-ExtUtils-Install" package is a Perl module used for installing Perl extensions and modules. It provides tools and utilities to simplify the installation process of Perl packages.
+- **perl-ExtUtils-Install**: Perl is a popular scripting language used for various purposes, including system administration and web development. 
 
 
 
@@ -307,27 +307,15 @@ Below is an example of how to use this script:
 
 .. code-block:: bash
 
-   # Setting the value of test:AO1 record to 50
-   set_record_value "test:AO1" "50"
-
-   # Setting the value of test:SI1 record to "Hello, EPICS!"
-   set_record_value "test:SI1" "Hello, EPICS!"
-
-   # Setting the value of test:Base_PV record to 3
    set_record_value "test:Base_PV" "3"
 
-   # Setting the value of test:Altitude_PV record to 4
    set_record_value "test:Altitude_PV" "4"
-
-   # Retrieving and logging the value of test:Calc_PV record
-   get_record_value "test:Calc_PV"
 
 Conclusion
 ..........
 
-This script provides a simple way to interact with EPICS records and log the operations to a file. Please make sure you have the necessary EPICS tools installed and configured before running the script.
+This script provides a simple way to interact with EPICS records and log the operations to a file. 
 
-Note: Replace "record_name" and "value" in the usage examples with the appropriate EPICS record name and value you want to use in your application.
 
 
 
@@ -517,7 +505,6 @@ Functionality
    f. Sets the axis labels, title, and grid for the plot.
    g. Saves the plot as a PNG file.
 
-   Note: The matplotlib library is required to run this script.
 
 Example
 .......
@@ -737,12 +724,10 @@ This script implements a server that handles commands received from clients over
             response = handle_command(command)
             print(response)
 
-        # Stop the server (optional)
-        # server.server_socket.close()
 
 Usage
 .....
-To start the server, run the script with the desired host and port:
+To start the server, run the script with the desired host and port:C
 
 .. code-block:: python
 
@@ -788,75 +773,7 @@ Failed Command Storage
 
 If an invalid command is received, it is stored in a file called ``failed_command.txt`` for reference.
 
-Class: Server
-.............
-This class represents the server and provides methods to start and handle client connections.
 
-Methods
-.......
-
-Initializes the Server object with the specified host and port.
-
-- ``start(self)``
-  Starts the server and listens for incoming connections.
-
-- ``handle_client(self, client_socket)``
-  Handles a client connection by receiving commands and sending responses.
-
-Function: store_failed_command
-..............................
-This function stores a failed command in the file ``failed_command.txt``.
-
-Function: get_current_time
-...........................
-
-This function retrieves the current time.
-
-Function: calculate_circle_area
-................................
-
-This function calculates the area of a circle given its radius.
-
-Function: calculate_multiplication
-...................................
-
-This function calculates the multiplication of a list of numbers.
-
-Function: get_ip_address
-........................
-
-This function retrieves the IP address of the server.
-
-Function: handle_command
-........................
-
-This function handles the incoming command and returns the corresponding response.
-
-Function: calculate_smax
-........................
-
-This function calculates the maximum product of a list of numbers.
-
-Thread: client_thread
-.....................
-
-This thread is created for each client connection and handles the communication with the client.
-
-Thread: server_thread
-.....................
-
-This thread is created to start the server and listen for incoming connections.
-
-Dependencies
-............
-
-This script requires the following modules:
-
-- socket
-- subprocess
-- threading
-- re
-- functools
 
 Example
 .......
@@ -869,14 +786,12 @@ An example usage of the script:
 
 3. Send commands to the server and receive the corresponding responses.
 
-4. To exit the server, enter the command "exit".
 
-Note: Make sure to stop the server gracefully by uncommenting the line ``server.server_socket.close()`` before exiting the script.
 
 Comuniacte EPICS IOC with Python Server
 ----------------------------------------
 
-The protocol file defines the communication protocol between the PVs (Process Variables) and the Python server.
+The protocol file is used to commmuiacte EPICS IOC with Python Server and how it works.
 
 Protocol File Content
 .....................
@@ -886,27 +801,23 @@ Protocol File Content
 The following changes were made to the protocol file:
 
 1. Timeout Configuration
-   - Timeout values for write, read, and reply operations were set to "disconnect" using the following directives:
      - ``@writetimeout { disconnect; }``
      - ``@replytimeout { disconnect; }``
      - ``@readtimeout { disconnect; }``
 
 2. Terminator Definitions
-   - The input and output terminators were defined as follows:
      - ``InTerminator = "\r\n";``
      - ``OutTerminator = "\r";``
 
 3. Replay Timeout
-   - The replay timeout value was set to 11200000000 using the directive:
      - ``ReplayTimeout = 11200000000;``
 
 4. Command Definitions
-   - Several commands were defined with their respective input and output formats:
-     - ``getTime``: Retrieves the current time.
-     - ``getIP``: Retrieves the IP address.
+     - ``getTime``: get the current time.
+     - ``getIP``: get the ip address of the server.
      - ``calcarea``: Calculates the area of a circle.
-     - ``smax``: Calculates the maximum product of three numbers.
-     - ``multi``: Calculates the multiplication of three numbers.
+     - ``smax``: Calculates the maximum product of 3 numbers.
+     - ``multi``: Calculates the multiplication of 3 numbers.
 .. code-block:: bash
 
   getTime {
@@ -1086,38 +997,32 @@ EPICS IOC Creation and Running (SIEMENS PLC)
 1. PLC: What are they and why are they used?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-PLC, or Programmable Logic Controllers, are specialized digital computers used in industrial automation and control systems. They are designed to automate and control electromechanical processes, replacing traditional relay-based control systems. PLCs are widely used in various industries, including manufacturing, automotive, power generation, and more, due to their flexibility, reliability, and ease of programming.
+PLCs are specialized digital computers used in industrial automation and control systems for automating and regulating electromechanical processes, benefiting various industries like manufacturing, automotive, and power generation.
+
 
 2. Benefits of PLC:
 ~~~~~~~~~~~~~~~~~~~~
 
-- Flexibility: PLCs can be easily reprogrammed to adapt to different processes and tasks without requiring physical changes to the system.
-- Reliability: They offer high reliability and robustness, ensuring stable operations in demanding industrial environments.
+- Reliability: They can be used for a long time without any problems
 - Modularity: PLC systems are modular, allowing easy expansion and customization based on the complexity of the control task.
-- Remote Monitoring and Control: PLCs enable remote monitoring and control of industrial processes, leading to better efficiency and reduced downtime.
-- Real-time Performance: PLCs operate in real-time, ensuring quick responses to inputs and providing precise control over processes.
+- Remote Monitoring and Control: PLCs enable remote monitoring and control of industrial processes.
+- Real-time Performance: PLCs provide real-time performance, allowing for faster response times and higher throughput rates.
 
 3. Why we use ladder programming for PLCs?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Ladder Logic Programming is one of the most commonly used programming languages for PLCs. It resembles electrical relay ladder diagrams, making it intuitive for engineers and electricians to understand and work with. The ladder programming language allows users to create logic-based control algorithms using graphical representations of relay logic circuits. This makes it easier to troubleshoot and modify the PLC programs, as well as reducing the learning curve for new users.
+Ladder logic programming is a widely used programming language for PLCs, mimicking electrical relay ladder diagrams. It enables engineers and electricians to design logic-based control algorithms.
 
 4. Why do we need EPICS (Experimental Physics and Industrial Control System) for PLCs?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-EPICS is a set of open-source software tools widely used in the control system and accelerator communities. It provides a robust and flexible framework for integrating different hardware and software components, including PLCs, into a unified control system. EPICS enables data sharing, synchronization, and monitoring between various devices and applications in complex control environments. Integrating EPICS with PLCs allows for seamless communication between PLCs and other parts of the control system, facilitating efficient data exchange and control.
+As stated before EPICS is great software for controlling and mootiering. The use it of allow facilites to have a single system that control and monitor all the devices in the facility.
 
-5. Introducing Siemens PLC:
+5. Explain S7nodave driver:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Siemens PLC is a series of programmable logic controllers developed by Siemens AG, a leading multinational engineering and technology company. Siemens PLCs are known for their advanced features, reliability, and widespread use in industrial automation. They come with various models and series to cater to different application requirements, making them suitable for a wide range of industries.
+S7nodave is a popular open-source driver used for communication with Siemens S7 PLCs for epics. which will be used in this tutorial.
 
-6. Explain S7nodave driver:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-S7nodave is a popular open-source driver used for communication with Siemens S7 PLCs. It allows data exchange between a computer and the Siemens PLC over Ethernet using the ISO-on-TCP communication protocol. S7nodave provides a simple and straightforward interface to read and write data to the PLC's memory, enabling seamless integration of Siemens PLCs with external systems, such as EPICS.
-
-7. How to install S7nodave:
+6. How to install S7nodave:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To install S7nodave, follow these steps:
@@ -1172,7 +1077,7 @@ To configure S7nodave for communication with Siemens PLC, follow these steps:
           field(ONAM, "ON")
       }
 
-In the above configuration, we define several EPICS records for different data types (analog input, analog output, binary input, and binary output) that communicate with the Siemens PLC using the S7nodave driver.
+In the above configuration, we define several EPICS records for different data types that communicate with the Siemens PLC using the S7nodave driver.
 
 - ``DTYP``: Specifies the record's device type, which is set to "s7nodave" to use the S7nodave driver.
 - ``INP``: Specifies the PLC memory address from which the record reads data.
@@ -1180,4 +1085,16 @@ In the above configuration, we define several EPICS records for different data t
 - ``SCAN``: Sets the scan rate for the record, determining how often it reads or writes data from/to the PLC.
 - ``ZNAM`` and ``ONAM``: Define the names for the zero (false) and one (true) states for binary records.
 
-By configuring these EPICS records with the appropriate memory addresses and data types, the PLC can be efficiently interfaced and controlled within the EPICS control system.
+By configuring these EPICS records with the appropriate memory addresses and data types, we can read and write data from/to the Siemens PLC using the S7nodave driver.
+
+EPICS GUI with Qt for the PLC
+-----------------------------
+
+.. image:: images/Qt_PLC.png
+
+
+  As you can see the GUI is composed of
+
+  1. Buttons to  turn on/off the LED
+  2. Button to see the button pressed or not
+  3. The reading of different sensors  in the PLC
