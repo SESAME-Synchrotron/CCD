@@ -54,7 +54,7 @@ Packages that required for EPICS installation
 
 
 
-- **make** : Make is a utility used for building and managing software projects. It is used to automate the process of building executable programs and libraries from source code. The "make" utility uses a "Makefile" to define the build process. It is a text file that contains instructions for the "make" utility to execute. 
+- **make** :It is uitily that automates the porcess of building the application such as EPICS,Stream Device ,...etc. It reads the makefile and executes the commands in the makefile to build the application.
 
 .. code-block:: bash
 
@@ -318,8 +318,6 @@ This script provides a simple way to interact with EPICS records and log the ope
 
 
 
-
-
 IOC Hypotenuse Project Exercise
 ...............................
 
@@ -396,28 +394,22 @@ A Python script for manipulating Process Variables (PV) and plotting a triangle 
       return caget(pv)
 
   def draw_triangle(base, altitude):
-      # Define the triangle vertices
       vertices = [(0, 0), (base, 0), (0, altitude), (0, 0)]
 
-      # Extract the x and y coordinates from the vertices
       x = [vertex[0] for vertex in vertices]
       y = [vertex[1] for vertex in vertices]
 
-      # Plot the triangle with filled sides
       plt.figure()
       plt.plot(x[:2], y[:2], '-o', color='red')  
       plt.plot(x[1:3], y[1:3], '-o', color='green') 
       plt.plot(x[2:], y[2:], '-o', color='blue')  
 
-      # Create a cool gradient color map
       cmap = matplotlib.cm.get_cmap('cool')
 
-      # Fill the triangle with a cool gradient color
       plt.fill_between(x[:2], y[:2], color=cmap(0.3), alpha=0.3)
       plt.fill_between(x[1:3], y[1:3], color=cmap(0.5), alpha=0.3)
       plt.fill_between(x[2:], y[2:], color=cmap(0.7), alpha=0.3)
 
-      # Add labels to each side
       plt.text((x[0] + x[1]) / 2, (y[0] + y[1]) / 2, 'base', ha='center', va='bottom', color='red')
       plt.text((x[1] + x[2]) / 2, (y[1] + y[2]) / 2, 'hypo', ha='center', va='bottom', color='green')
       plt.text((x[0] + x[2]) / 2, (y[0] + y[2]) / 2, 'altitdue', ha='right', va='top', color='blue')
@@ -458,10 +450,6 @@ A Python script for manipulating Process Variables (PV) and plotting a triangle 
 
 
 
-
-
-
-
 Usage
 .....
 
@@ -498,7 +486,7 @@ Functionality
    The function performs the following steps:
 
    a. Defines the vertices of the triangle based on the given base and altitude.
-   b. Extracts the x and y coordinates from the vertices.
+   b. which will get take x and y vertices
    c. Plots the sides of the triangle using different colors.
    d. Fills the triangle with a gradient color.
    e. Adds labels to each side of the triangle.
@@ -566,12 +554,18 @@ To configure the necessary environment variables for EPICS-Qt, add the following
 .. code-block:: bash
 
    export EPICS_BASE=/path/to/your/epics/base
+
    export EPICS_HOST_ARCH=linux-x86_64
+
    export QWT_ROOT=/usr/local/qwt-6.1.3
+
    export QWT_INCLUDE_PATH=${QWT_ROOT}/include
+
    export QE_TARGET_DIR=/usr/local/epics-qt
+   
    export PATH=${EPICS_BASE}/bin/${EPICS_HOST_ARCH}:${QE_TARGET_DIR}/bin/${EPICS_HOST_ARCH}:/usr/lib64/qt5/bin:${PATH}
    export LD_LIBRARY_PATH=${EPICS_BASE}/lib/${EPICS_HOST_ARCH}:/usr/local/qwt-6.1.3/lib:${QE_TARGET_DIR}/lib/${EPICS_HOST_ARCH}:${QE_TARGET_DIR}/lib/${EPICS_HOST_ARCH}/designer
+
    export QT_PLUGIN_PATH=${QT_PLUGIN_PATH}:${QWT_ROOT}/plugins:$QE_TARGET_DIR/lib/${EPICS_HOST_ARCH}
 
 4. Conclusion
@@ -584,18 +578,31 @@ Add this to the .pro file
 .. code-block:: bash
 
   unix:!macx: LIBS += -L$$(QE_TARGET_DIR)/lib/linux-x86_64/ -lQEFramework
+
   unix:!macx: LIBS += -L$$(QE_TARGET_DIR)/lib/linux-x86_64/designer -lQEPlugin
+
   INCLUDEPATH += $$(QE_TARGET_DIR)/include
+
   DEPENDPATH  += $$(QE_TARGET_DIR)/include
+
   unix:!macx: LIBS += -L$$(QWT_ROOT)/lib/ -lqwt
+
   INCLUDEPATH += $$(QWT_ROOT)/include
+
   DEPENDPATH  += $$(QWT_ROOT)/include
+
   unix:!macx: LIBS += -L$$(EPICS_BASE)/lib/linux-x86_64/ -lca
+
   unix:!macx: LIBS += -L$$(EPICS_BASE)/lib/linux-x86_64/ -lCom
+
   INCLUDEPATH += $$(EPICS_BASE)/include
+
   DEPENDPATH += $$(EPICS_BASE)/include
+
   INCLUDEPATH += $$(EPICS_BASE)/include/os/Linux
+
   DEPENDPATH += $$(EPICS_BASE)/include/os/Linux
+
   INCLUDEPATH += $$(EPICS_BASE)/include/compiler/gcc/
 
 
@@ -1073,11 +1080,11 @@ To configure S7nodave for communication with Siemens PLC, follow these steps:
 
 In the above configuration, we define several EPICS records for different data types that communicate with the Siemens PLC using the S7nodave driver.
 
-- ``DTYP``: Specifies the record's device type, which is set to "s7nodave" to use the S7nodave driver.
-- ``INP``: Specifies the PLC memory address from which the record reads data.
-- ``OUT``: Specifies the PLC memory address to which the record writes data.
-- ``SCAN``: Sets the scan rate for the record, determining how often it reads or writes data from/to the PLC.
-- ``ZNAM`` and ``ONAM``: Define the names for the zero (false) and one (true) states for binary records.
+- ``DTYP``: Tell EPICS which driver to use for the record
+- ``INP``: Tell EPICS where to read data from
+- ``OUT``: Tell EPICS where to write data to
+- ``SCAN``: Define the scan rate of the recored
+- ``ZNAM`` and ``ONAM``: Define what is zero and one for the record
 
 By configuring these EPICS records with the appropriate memory addresses and data types, we can read and write data from/to the Siemens PLC using the S7nodave driver.
 
@@ -1087,7 +1094,7 @@ EPICS GUI with Qt for the PLC
 .. image:: images/QT_PLC.png
 
 
-As you can see the GUI is composed of
+The UI have the following buttons:
 
 1. Buttons to  turn on/off the LED
 2. Button to see the button pressed or not
