@@ -441,6 +441,7 @@ Including the PV's in the previous exercise, the following are the extra PV's th
 6.	Store the data in HDF5 file.
 
 .. code-block:: bash
+    
     import numpy as np
     import h5py
     import argparse
