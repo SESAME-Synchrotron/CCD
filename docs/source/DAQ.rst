@@ -8,7 +8,7 @@ Data Collection at SESAME
 Data Collection and Analysis at SESAME is was activate begging of 2021 
 
 
-There tasks 
+Their tasks 
 
 - smooth and reliable data collection
 
