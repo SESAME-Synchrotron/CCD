@@ -120,9 +120,10 @@ Remote Network Protocols
 
 **Internet Protocols (HTTP, HTTPS):** HTTP (Hypertext Transfer Protocol) and HTTPS (Hypertext Transfer Protocol Secure) are communication protocols used for transmitting data over the internet, with HTTPS providing encryption and authentication to secure the data exchanged between a web server and a client, ensuring a safer browsing experience.
 
-At SESAME, the Scientific Computing Department uses a very big cluster of servers that all run hundreds of virtual machines. Therefore, having a remote access method to these virtual machines is necissary and very needed to have control over the servers over the local SESAME network without having to physically plug in your laptop and make changes to each server.
+At SESAME, the Scientific Computing Department uses a very big cluster of servers that all run hundreds of virtual machines. Therefore, having a remote access method to these virtual machines is necessary and very needed to have control over the servers over the local SESAME network without having to physically plug in your laptop and make changes to each server.
 
 Some of the Remote Access Protocol methods used at SESAME include:
+
 * SSH
 * VNC
 * NoMachine
@@ -134,7 +135,7 @@ Ports for servers:
 - HTTPS: 443
 - NoMachine: 5000
 
-*Firewall Management:* Ports in the device allow for data transfer, managing the data going in and out. 
+**Firewall Management:** Ports in the device allow for data transfer, managing the data going in and out. 
 
 
 **SSH (Secure Shell):** is a network protocol that provides a secure and encrypted method for remote access to and management of systems over an unsecured network.
@@ -154,7 +155,7 @@ Steps to connect via SSH:
 
 Steps to connect via VNC: 
 
-Establishing a VNC network is a quite long and specific process, I recommend the looking up how to install a VNC viewer on Linux and access it through you own OS (Windows or MacOS). 
+Establishing a VNC network is a quite long and specific process, I recommend looking up how to install a VNC viewer on Linux and access it through you own OS (Windows or MacOS). 
 Here are some links that should be helpful:
 
 - https://cat.pdx.edu/platforms/windows/remote-access/vnc-to-linux/

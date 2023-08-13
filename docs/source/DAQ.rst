@@ -194,7 +194,7 @@ These are the main parameters to start implementing the step scan technique (to 
    
 5. Store the data (current position vs. timestamp in a .xdi file (file is available and attached as a part of the experimental data files for XAFS Beamline)
 
-.. code-block:: bash
+.. code-block:: python
 
     import h5py
     import numpy as np
@@ -388,9 +388,10 @@ This GUI operates by sending commands to the Python script described in Python-B
 
 
 Synchronization between BEATS Beameline Detector and Rotational Motor
-.......................................................................
+----------------------------------------------------------------------
 
 **Software and Hardware Synchronization**
+..........................................
 
 
 The goal of the software-based synchronization task was to emulate the BEATS Beamline detector's process of continuously capturing frames from the samples. In essence, this entails repeating the acquisition process throughout the full rotation of the sample.
@@ -440,7 +441,7 @@ Including the PV's in the previous exercise, the following are the extra PV's th
 
 6.	Store the data in HDF5 file.
 
-.. code-block:: bash
+.. code-block:: python
     
     import numpy as np
     import h5py
@@ -630,3 +631,28 @@ Including the PV's in the previous exercise, the following are the extra PV's th
                             help="JSON file containing PV names. (Default: config.json)")
         args = parser.parse_args()
         main(args)
+
+
+PandABlocks: Hardware Synchronization Mechanisms and Resource Offerings
+.............................................................................
+
+PandABlocks, an integrated position, acquisition, and control system, emerges as a groundbreaking solution tailored to fulfill the demands of contemporary experiments. Capable of processing absolute encoder inputs, PandABlocks effortlessly orchestrates the synchronized calculation, control, and recording of multiple hardware component positions. Born out of a collaborative effort between SOLEIL and DIAMOND, PandABlocks redefines position and acquisition processing platforms, ushering in a new era of scientific exploration. Its foundation rests on the powerful Zynq 7030 architecture, known for its versatility and reliability, while accommodating a range of encoder standards. This state-of-the-art platform is armed with synchronous triggering, data capture, and data manipulation capabilities, making it an indispensable asset for cutting-edge experiments.
+
+
+.. image:: images/PandaBox.png
+
+
+**A Collaborative project:**
+
+The culmination of synergistic efforts between SOLEIL and DIAMOND, PandABlocks epitomizes the fusion of innovation and expertise. Built upon the foundation of Diamond's 'Zebra' and SOLEIL's 'SPEITBOX,' PandABlocks inherits and enhances the strengths of its predecessors. Notably, the platform leverages absolute encoder protocols, enabling precise and accurate positional information. Furthermore, PandABlocks ensures seamless data transfer at higher bandwidths, thus eliminating data bottlenecks that could hinder experimental progress. One of its defining features is the augmentation of FPGA resources, endowing the system with unprecedented computational power, setting the stage for tackling the complex challenges of future experiments.
+
+**Sans-IO Library:**
+
+The decision to create a Sans-IO library for PandABlocks stems from the imperative of reusability and adaptability. By encapsulating the protocol in a distinct class separate from I/O operations, PandABlocks aligns with a variety of concurrency frameworks, facilitating integration into diverse operational environments. This design philosophy finds practical manifestation in the creation of both a BlockingClient and an AsyncioClient, two distinct implementations that draw upon the shared protocol encapsulation, aptly named a Connection. This approach ensures that the protocol remains agnostic to the underlying I/O mechanics, providing the freedom to seamlessly transition between different concurrency models without compromising performance or functionality.
+
+**Optimizing Data Transfer:**
+
+A paramount consideration in the PandABlocks ecosystem is the optimization of HDF file writing speed. Numerous factors influence the rate at which data can be efficiently written, ranging from trigger frequency to CPU load on the PandA. The library's robust architecture addresses these factors comprehensively, providing strategies to maximize data throughput and ensure smooth operation. By averaging data, scaling it on the client side, and adopting a judicious flush rate, PandABlocks strikes a harmonious balance between real-time data capture and efficient utilization of resources. Additionally, the removal of the panda-webcontrol package contributes to streamlined performance, enhancing the overall efficiency of the system.
+
+
+In conclusion, PandABlocks stands as a pinnacle of innovation, seamlessly merging advanced synchronization mechanisms with a rich array of resources. Its collaborative origins, rooted in the collaboration between SOLEIL and DIAMOND, underscore its commitment to excellence. By embodying principles of flexibility and adaptability through the Sans-IO library, PandABlocks empowers users to harness its capabilities within diverse operational contexts. Through strategic optimization strategies, PandABlocks champions efficient data transfer and processing, ensuring that the platform remains at the forefront of experimental endeavors, poised to shape the future of scientific exploration.

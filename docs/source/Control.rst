@@ -9,7 +9,7 @@ Control Systems and Introduction to the EPICS Toolkit
 -----------------------------------------------------
 **Accelerator Control System:** connects the Operator in the control room with the accelerator hardware. The control room might not be near the accelerator.
 
-*For example:* SESAME has N Computers, N magnets, N vacuum pumps, 5 beamlines, a cooling system, RF system, power supply system, ... etc. which all need to be closely and heavily controlled.
+*For example:* SESAME has a Booster Ring, Storage Ring, 5 Beamlines, hundreds of Computers, magnets, vacuum pumps, a cooling system, RF system, power supply system, ... etc. which all need to be closely and heavily controlled.
 
 .. image:: images/Operators.png
 
@@ -88,7 +88,7 @@ Packages that required for EPICS installation
 
 .. code-block:: bash
 
-  # To install the perl-ExtUtils-Install package, run the following command:
+    # To install the perl-ExtUtils-Install package, run the following command:
     sudo yum install perl-ExtUtils-Install
 
 
@@ -100,9 +100,9 @@ To install EPICS on Rocky Linux, follow these steps:
 
 .. code-block:: bash
 
-  # To install epics from source the following command: 
-  wget https://epics-controls.org/download/base/base-3.15.6.tar.gz
-  # Then extract the file
+    # To install epics from source the following command: 
+    wget https://epics-controls.org/download/base/base-3.15.6.tar.gz
+    # Then extract the file
     tar -xvf base-3.15.6.tar.gz
     # Then go to the extracted directory
     cd base-3.15.6
@@ -138,7 +138,7 @@ Then to check if the installation is successful, run the following command:
 
 .. code-block:: bash
 
-  # Run the following command to check if the installation is successful 
+    # Run the following command to check if the installation is successful 
     caget
     # Then you should see the following output
     No pv name specified. ('caget -h' for help.) 
@@ -196,7 +196,7 @@ Only the following lines should be in the Makefile file.
 IOC Database
 ............
 
-In the IOC database, there are units of PV's called **Records**. Each of these records have a specific type that allows them to alter the functionality of the PV. In every one of these records, there are **fields**, in which include attributes and some of the possible functions that that the PV could do. 
+In the IOC database, there are units of PV's called **Records**. Each of these records has a specific type that allows it to alter the functionality of the PV. In every one of these records, there are **fields**, in which include attributes and some of the possible functions that that the PV could do. 
 
 **Record:** an object with a unique name, properties (**fields**) and contains information (data) where different data types can appear in different fields. A record also has the ability to perform actions on data.
 
@@ -208,7 +208,7 @@ For example: ``ARIDI-PCT:CURRENT.`` in this case most record fields can be acces
 
 Note: if no field name is given, Channel Access will by default use the .VAL field. 
 
-A general structure of what you might see in an IOC in terms of records and fields is the following:
+A general structure of what you might write in an IOC in terms of records and fields is the following:
 
 .. code-block:: bash
 
@@ -233,7 +233,7 @@ A general structure of what you might see in an IOC in terms of records and fiel
 
 The documentation for the list of records on EPICS and their respective fields can be found on this page: https://epics.anl.gov/EpicsDocumentation/AppDevManuals/RecordRef/Recordref-3.html
 
-After curating your IOC database, in order to interact with it one would have to use a Channel Access (CA) Client. 
+After creating your IOC database, in order to interact with it you would have to use a Channel Access (CA) Client. 
 
 Some of the most used CA clients are the following: 
 
